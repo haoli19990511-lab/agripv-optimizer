@@ -1,0 +1,11 @@
+# Large, regenerable outputs: results and the Radiance/WOFOST cache, old run folders
+results/
+runs/
+
+# Teammates' model copies (kept in their own repositories)
+Tianze_Crop_Hao_Jupyter/
+
+# Python / Jupyter by-products
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

@@ -1,0 +1,8 @@
+{
+  "offline_tests_passed": 15,
+  "radiance_executed": false,
+  "real_pcse_executed": false,
+  "notebook_cells_parse": true,
+  "default_expensive_run": false,
+  "validation_kind": "unit and integration tests with mocked physics/crop; no field validation"
+}

@@ -1,0 +1,88 @@
+{
+  "tianze": {
+    "fixed": {
+      "design": {
+        "tilt": 25.0,
+        "pitch": 7.0,
+        "azimuth": 180.0,
+        "clearance_height": 3.0,
+        "xcellgap": 0.0004,
+        "ycellgap": 0.00235,
+        "xgap_conventional": 0.2
+      },
+      "module": {
+        "name": "LONGi_LR5_72HGD",
+        "module_x": 1.134,
+        "module_y": 2.278,
+        "module_thickness": 0.03,
+        "numcellsx": 6,
+        "numcellsy": 24,
+        "xcell": 0.182,
+        "ycell": 0.091,
+        "bifaciality": 0.8,
+        "glass_total_transmittance": 0.88,
+        "glass_specular_reflectance": 0.08,
+        "glass_haze": 0.2
+      },
+      "array": {
+        "n_mods": 5,
+        "n_rows": 5
+      },
+      "scenario": {
+        "scenario_name": "Aachen_Crop_A_case_001",
+        "crop_name": "Crop_A",
+        "start_date": "2001-03-01",
+        "end_date": "2001-03-30",
+        "weather_filename": "Aachen_PVGIS_TMY.epw",
+        "albedo": 0.2
+      },
+      "source_file": "02_optimization_ready_radiation_model.ipynb",
+      "source_sha256": "11d6c0ece6706beed953500cee21fa4581353d81afe5301a033127c17bbcd194"
+    },
+    "tracking": {
+      "design": {
+        "pitch": 7.0,
+        "axis_azimuth": 180.0,
+        "hub_height": 3.0,
+        "limit_angle": 45.0,
+        "backtrack": true,
+        "xcellgap": 0.0004,
+        "ycellgap": 0.00235,
+        "xgap_conventional": 0.2
+      },
+      "module": {
+        "name": "LONGi_LR5_72HGD",
+        "module_x": 1.134,
+        "module_y": 2.278,
+        "module_thickness": 0.03,
+        "numcellsx": 6,
+        "numcellsy": 24,
+        "xcell": 0.182,
+        "ycell": 0.091,
+        "bifaciality": 0.8,
+        "glass_total_transmittance": 0.88,
+        "glass_specular_reflectance": 0.08,
+        "glass_haze": 0.2
+      },
+      "array": {
+        "n_mods": 5,
+        "n_rows": 5
+      },
+      "scenario": {
+        "scenario_name": "Aachen_Crop_A_single_axis_001",
+        "crop_name": "Crop_A",
+        "start_date": "2001-03-01",
+        "end_date": "2001-03-30",
+        "weather_filename": "Aachen_PVGIS_TMY.epw",
+        "albedo": 0.2
+      },
+      "source_file": "03_optimization_ready_single_axis_radiation_model.ipynb",
+      "source_sha256": "2e9904d5feed4ed0bf8b0aa86c02d0022c4a2c075b4fb1fd47bafad771a922c4"
+    }
+  },
+  "epw_sha256": "75bc5461e27cc67db1f87b226e638937827e987e269fb73e43f823c89320e25e",
+  "crop_source": "https://github.com/ajwdewit/WOFOST_crop_parameters",
+  "crop_commit": "f0a6491f23685998fa2172b397ff959a3b5ea738",
+  "crop_license": "EUPL (see wheat.yaml metadata)",
+  "website_reference": "crop-model-web/model_worker.py; same Wofost72_PP and official assertions; website files unchanged"
+}
