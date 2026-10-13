@@ -80,11 +80,12 @@ def recompute_economics(table, config, electricity_price_factor=1.0):
     elec = t.electrical_revenue_eur*electricity_price_factor
     crop_rev = t.crop_yield_t_ha.fillna(0.)*planted*c["crop_price_eur_t"]
     crop_cost = planted*c["crop_cost_eur_planted_ha"]
-    # Agri-PV bonus per kWh as evaluated (absent in pre-v7 tables); not scaled with the market price.
-    # A scenario with agripv_bonus_eur_kwh = 0 removes it.
-    bonus = t.agripv_bonus_eur if "agripv_bonus_eur" in t.columns else 0.
-    if c.get("agripv_bonus_eur_kwh", None) == 0:
-        bonus = 0.
+    # Agri-PV bonus as in the engine: rate x kWh for non-vertical designs with >= 2.1 m clearance.
+    # Configs without the key (runs before the bonus existed) give 0, so old results reproduce.
+    clearance = t.min_clearance_m if "min_clearance_m" in t.columns else t.clearance_height
+    eligible = (clearance >= c.get("agripv_bonus_min_clearance_m", 2.1)) & (
+        t.mounting != "vertical" if "mounting" in t.columns else True)
+    bonus = c.get("agripv_bonus_eur_kwh", 0.)*t.electrical_kwh*eligible
     cashflow = elec+bonus+crop_rev-opex-crop_cost
     annual_net = cashflow-capex*crf(c["discount_rate"], c["lifetime_years"])
     t["electrical_revenue_eur"] = elec

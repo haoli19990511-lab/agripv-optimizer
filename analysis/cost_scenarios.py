@@ -31,6 +31,7 @@ SCENARIOS = {
     "S3 literature, semi 300": dict(LIT, other_capex_eur_kwp=650., module_semi_eur_kwp=300.),
     "S4 literature high (site prep 300)": dict(LIT, other_capex_eur_kwp=800., module_semi_eur_kwp=650.),
     "S6 without agri-PV bonus": dict(agripv_bonus_eur_kwh=0.),
+    "S7 with agri-PV bonus 0.5 ct/kWh": dict(agripv_bonus_eur_kwh=.005, agripv_bonus_min_clearance_m=2.1),
 }
 
 
