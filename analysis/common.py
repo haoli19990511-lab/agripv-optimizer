@@ -33,15 +33,22 @@ def decisions(table):
     return DECISIONS
 
 
+def geometry_columns(t):
+    """Mounting, structure height and lowest edge per row; rows from v6 tables (or pooled with
+    them) lack the v7 columns and are fixed-tilt designs whose clearance is all three heights."""
+    mounting = t.mounting.fillna("fixed") if "mounting" in t.columns else pd.Series("fixed", index=t.index)
+    height = t.structure_height_m.fillna(t.clearance_height) if "structure_height_m" in t.columns else t.clearance_height
+    low = t.min_clearance_m.fillna(t.clearance_height) if "min_clearance_m" in t.columns else t.clearance_height
+    return mounting, height, low
+
+
 def structure_rate(t, c):
     """Structure EUR/kWp per row, as in weighted_engine.economic_metrics (v6 and v7)."""
-    height = t.structure_height_m if "structure_height_m" in t.columns else t.clearance_height
+    mounting, height, _ = geometry_columns(t)
     rate = c["structure_base_eur_kwp"] + c["structure_extra_eur_kwp_m"]*np.maximum(
         0., height-c["structure_reference_height_m"])
-    if "mounting" in t.columns:
-        rate = rate + np.where(t.mounting == "single_axis", c.get("tracker_extra_eur_kwp", 150.), 0.)
-        rate = np.where(t.mounting == "vertical", c.get("vertical_structure_eur_kwp", 50.), rate)
-    return rate
+    rate = rate + np.where(mounting == "single_axis", c.get("tracker_extra_eur_kwp", 150.), 0.)
+    return np.where(mounting == "vertical", c.get("vertical_structure_eur_kwp", 50.), rate)
 KPIS = ["LER", "LER_crop", "LER_pv", "annual_net_eur_ha"]
 
 ECON_KEYS = ["module_semi_eur_kwp", "module_conv_eur_kwp", "structure_base_eur_kwp",
@@ -82,9 +89,8 @@ def recompute_economics(table, config, electricity_price_factor=1.0):
     crop_cost = planted*c["crop_cost_eur_planted_ha"]
     # Agri-PV bonus as in the engine: rate x kWh for non-vertical designs with >= 2.1 m clearance.
     # Configs without the key (runs before the bonus existed) give 0, so old results reproduce.
-    clearance = t.min_clearance_m if "min_clearance_m" in t.columns else t.clearance_height
-    eligible = (clearance >= c.get("agripv_bonus_min_clearance_m", 2.1)) & (
-        t.mounting != "vertical" if "mounting" in t.columns else True)
+    mounting, _, clearance = geometry_columns(t)
+    eligible = (clearance >= c.get("agripv_bonus_min_clearance_m", 2.1)) & (mounting != "vertical")
     bonus = c.get("agripv_bonus_eur_kwh", 0.)*t.electrical_kwh*eligible
     cashflow = elec+bonus+crop_rev-opex-crop_cost
     annual_net = cashflow-capex*crf(c["discount_rate"], c["lifetime_years"])
