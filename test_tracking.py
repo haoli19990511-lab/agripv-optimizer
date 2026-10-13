@@ -137,3 +137,16 @@ class VerticalTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class BonusTests(unittest.TestCase):
+    def test_bonus_for_elevated_not_for_vertical(self):
+        v = VerticalTests()
+        fixed = v._economics(PVDesign(tilt=30., pitch=8., azimuth=180., clearance_height=3., **GAPS))
+        self.assertAlmostEqual(fixed["agripv_bonus_eur"], .005*fixed["electrical_kwh"])
+        low = v._economics(PVDesign(tilt=30., pitch=8., azimuth=180., clearance_height=2., **GAPS))
+        self.assertEqual(low["agripv_bonus_eur"], 0.)  # below 2.1 m clear height
+        vert = v._economics(VerticalPVDesign(pitch=8., azimuth=90., clearance_height=.6, **GAPS))
+        self.assertEqual(vert["agripv_bonus_eur"], 0.)
+        self.assertAlmostEqual(fixed["revenue_eur"], fixed["electrical_revenue_eur"]+fixed["agripv_bonus_eur"]
+                               + fixed["crop_revenue_eur"])

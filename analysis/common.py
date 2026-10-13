@@ -80,7 +80,12 @@ def recompute_economics(table, config, electricity_price_factor=1.0):
     elec = t.electrical_revenue_eur*electricity_price_factor
     crop_rev = t.crop_yield_t_ha.fillna(0.)*planted*c["crop_price_eur_t"]
     crop_cost = planted*c["crop_cost_eur_planted_ha"]
-    cashflow = elec+crop_rev-opex-crop_cost
+    # Agri-PV bonus per kWh as evaluated (absent in pre-v7 tables); not scaled with the market price.
+    # A scenario with agripv_bonus_eur_kwh = 0 removes it.
+    bonus = t.agripv_bonus_eur if "agripv_bonus_eur" in t.columns else 0.
+    if c.get("agripv_bonus_eur_kwh", None) == 0:
+        bonus = 0.
+    cashflow = elec+bonus+crop_rev-opex-crop_cost
     annual_net = cashflow-capex*crf(c["discount_rate"], c["lifetime_years"])
     t["electrical_revenue_eur"] = elec
     t["capex_total_eur"] = capex

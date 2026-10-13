@@ -41,6 +41,12 @@ class EngineConfig:
     # replaces structure_base/extra for vertical designs. Strip under each vertical row that cannot be
     # cropped (posts, machinery distance), m per row; ASSUMPTION to confirm.
     vertical_structure_eur_kwp: float = 50.
+    # German agri-PV bonus (EEG 2023 Sec. 38b, "hoch aufgestaenderte" agri-PV, >= 2.1 m clear height):
+    # 0.5 ct/kWh on top of the market revenue for awards from 2025 on (1.2 ct/kWh in 2023). Only for
+    # tendered plants and still subject to EU state-aid approval (2026) -> report with and without it.
+    # Not granted to vertical systems. 0 switches it off.
+    agripv_bonus_eur_kwh: float = .005
+    agripv_bonus_min_clearance_m: float = 2.1
     vertical_row_strip_m: float = .5
     opex_fraction: float = .01
     crop_price_eur_t: float = 220.
@@ -156,6 +162,9 @@ def economic_metrics(kind, hourly, prices, design, module, array, grid,
     electrical_revenue = float(np.dot(kwh, np.asarray(prices, float)))
     kwp = n*peak_w/1000.
     geometry = mounting_geometry(design, module)
+    bonus_eligible = (geometry["mounting"] != "vertical"
+                      and geometry["min_clearance_m"] >= config.agripv_bonus_min_clearance_m)
+    agripv_bonus = config.agripv_bonus_eur_kwh*float(kwh.sum()) if bonus_eligible else 0.
     structure_rate = config.structure_base_eur_kwp + config.structure_extra_eur_kwp_m*max(
         0., geometry["structure_height_m"]-config.structure_reference_height_m)
     if geometry["mounting"] == "single_axis":
@@ -172,7 +181,7 @@ def economic_metrics(kind, hourly, prices, design, module, array, grid,
         planted = max(0., 1. - array.n_rows*config.vertical_row_strip_m/field_length_m(array, design))
     crop_revenue = crop_yield*area_ha*planted*config.crop_price_eur_t
     crop_cost = area_ha*planted*config.crop_cost_eur_planted_ha
-    cashflow = electrical_revenue+crop_revenue-opex-crop_cost
+    cashflow = electrical_revenue+agripv_bonus+crop_revenue-opex-crop_cost
     if config.lifetime_years < 1 or config.discount_rate < 0:
         raise ValueError("Lifetime must be positive, discount rate nonnegative")
     r, years = config.discount_rate, config.lifetime_years
@@ -202,7 +211,9 @@ def economic_metrics(kind, hourly, prices, design, module, array, grid,
         crop_all_points_mature=bool(mature), LER_crop=crop_ratio, LER_pv=pv_ratio, LER=crop_ratio+pv_ratio,
         electrical_kwh=float(kwh.sum()), electrical_kwh_per_ha=float(kwh.sum())/area_ha,
         electrical_revenue_eur=electrical_revenue, crop_revenue_eur=crop_revenue,
-        crop_cost_eur=crop_cost, annual_opex_eur=opex, revenue_eur=electrical_revenue+crop_revenue,
+        crop_cost_eur=crop_cost, annual_opex_eur=opex, agripv_bonus_eur=agripv_bonus,
+        revenue_eur=electrical_revenue+agripv_bonus+crop_revenue,
+        capture_price_eur_kwh=electrical_revenue/float(kwh.sum()) if kwh.sum() > 0 else float("nan"),
         annual_operating_cashflow_eur=cashflow, annualised_capex_eur=annualised_capex,
         annual_net_eur=annual_net, annual_net_eur_ha=annual_net/area_ha,
         installed_kwp=kwp, capex_total_eur=capex, module_peak_w=peak_w,
