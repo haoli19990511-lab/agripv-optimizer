@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from common import (COLORS, LABELS, check_reproduction, crf, load_run, mark_pareto,
+from common import (COLORS, LABELS, check_reproduction, crf, geometry_columns, load_run, mark_pareto,
                     recompute_economics, structure_rate, decisions)
 
 # Low / high values per parameter. These are assumption ranges to justify in the
@@ -21,8 +21,9 @@ RANGES = {
     "electricity_price_factor": (0.7, 1.3),
     "module_conv_eur_kwp": (150., 300.),
     "module_semi_eur_kwp": (400., 900.),
-    "structure_base_eur_kwp": (400., 900.),
-    "structure_extra_eur_kwp_m": (50., 300.),
+    "structure_base_eur_kwp": (200., 450.),     # D7.3: ~300 EUR/kWp below 5 m
+    "structure_extra_eur_kwp_m": (75., 300.),
+    "other_capex_eur_kwp": (500., 800.),        # Bellone et al. Table 10 + site preparation 150-300
     "opex_fraction": (0.005, 0.02),
     "discount_rate": (0.03, 0.08),
     "lifetime_years": (20, 30),
@@ -57,7 +58,10 @@ def break_even_module_price(table, cfg):
     t = table
     s = structure_rate(t, cfg) + cfg.get("other_capex_eur_kwp", 0.)
     planted = t.planted_area_ha if "planted_area_ha" in t.columns else t.footprint_ha*cfg["planted_fraction"]
-    margin = (t.electrical_revenue_eur + t.crop_yield_t_ha.fillna(0.)*planted*cfg["crop_price_eur_t"]
+    mounting, _, clearance = geometry_columns(t)  # agri-PV bonus exactly as in recompute_economics
+    eligible = (clearance >= cfg.get("agripv_bonus_min_clearance_m", 2.1)) & (mounting != "vertical")
+    bonus = cfg.get("agripv_bonus_eur_kwh", 0.)*t.electrical_kwh*eligible
+    margin = (t.electrical_revenue_eur + bonus + t.crop_yield_t_ha.fillna(0.)*planted*cfg["crop_price_eur_t"]
               - planted*cfg["crop_cost_eur_planted_ha"])
     k = cfg["opex_fraction"] + crf(cfg["discount_rate"], cfg["lifetime_years"])
     return margin/(t.installed_kwp*k) - s
