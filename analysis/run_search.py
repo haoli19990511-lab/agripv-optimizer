@@ -3,7 +3,9 @@
 Executes the notebook's model cells and its control panel with RUN_SEARCH forced to False,
 then runs engine.search() + export() with the panel's settings (POP_SIZE, N_GENERATIONS, SEED,
 SAMPLING, PARALLEL_DESIGNS, prices). Redirect stdout to a log file: convergence.py reads it.
-    python -u analysis/run_search.py [notebook] > results/search_run.log 2>&1
+    python -u analysis/run_search.py [notebook] [--seed N] [--tag NAME] [--conventional-only]
+--seed overrides SEED of the control panel; --tag moves the exported folder to <folder>_<tag>
+(so repeated runs do not overwrite each other); --conventional-only optimises conventional modules only.
 """
 import json
 import os
@@ -13,7 +15,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
 sys.path.insert(0, str(ROOT))
-NOTEBOOK = sys.argv[1] if len(sys.argv) > 1 else "agripv_optimizer_fixed.ipynb"
+import argparse
+args = argparse.ArgumentParser()
+args.add_argument("notebook", nargs="?", default="agripv_optimizer_fixed.ipynb")
+args.add_argument("--seed", type=int)
+args.add_argument("--tag")
+args.add_argument("--conventional-only", action="store_true")
+args = args.parse_args()
+NOTEBOOK = args.notebook
 
 nb = json.loads((ROOT/NOTEBOOK).read_text(encoding="utf-8"))
 ns = {"__name__": "__main__", "display": print}
@@ -27,7 +36,12 @@ for cell in nb["cells"]:
     exec(compile(code, "<notebook-cell>", "exec"), ns)
 assert ns["RUN_SEARCH"] is False and ns["engine"] is None
 
+import shutil
 from weighted_engine import make_engine
+if args.seed is not None:
+    ns["SEED"] = args.seed
+if args.conventional_only:
+    ns["CONSTRUCTIONS"] = ("conventional",)
 
 engine = make_engine(ns, ns["CROP_CONFIG"], ns["ENGINE_CONFIG"], ns["SAMPLING"], ns["REFERENCE_PV_DESIGN"],
                      ns["PRICE_MODE"], ns["FLAT_PRICE_EUR_KWH"], ns["PRICE_YEARS"],
@@ -36,5 +50,22 @@ engine = make_engine(ns, ns["CROP_CONFIG"], ns["ENGINE_CONFIG"], ns["SAMPLING"],
 print(f"Headless search: {NOTEBOOK}, MOUNTING={ns['MOUNTING']}, POP_SIZE={ns['POP_SIZE']}, "
       f"N_GENERATIONS={ns['N_GENERATIONS']}, SEED={ns['SEED']}, costs={ns['ENGINE_CONFIG']}", flush=True)
 table = engine.search(ns["POP_SIZE"], ns["N_GENERATIONS"], ns["SEED"], ns["DECISION_BOUNDS"], ns["BASE_DESIGN"])
-engine.export(table)
+folder = engine._results_folder(f"nsga2_{engine.sampling.mode}")
+if args.tag:
+    # export() always writes <folder>; park an existing result there so it is never overwritten.
+    target = folder.with_name(f"{folder.name}_{args.tag}")
+    parked = folder.with_name(f"{folder.name}__parked_by_{args.tag}")
+    if target.exists() or parked.exists():
+        raise FileExistsError(f"{target} or {parked} exists; choose another --tag")
+    if folder.exists():
+        shutil.move(str(folder), str(parked))
+    try:
+        engine.export(table)
+        shutil.move(str(folder), str(target))
+    finally:
+        if parked.exists():
+            shutil.move(str(parked), str(folder))
+    print("Saved results to", target, flush=True)
+else:
+    engine.export(table)
 print(table.loc[table.pareto & table.feasible, ["design_id", "pv_type", "LER", "annual_net_eur_ha"]].to_string())

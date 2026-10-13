@@ -3,7 +3,7 @@
 Executes the notebook's model cells (as eval_worker.py does) and its Section D control
 panel with RUN_SEARCH forced to False, then calls engine.recheck() exactly like Section F.
 Run with the agripv environment from the optimizer folder:
-    python analysis/run_recheck.py [pareto_front.csv] [days_per_month] [hours_per_day]
+    python analysis/run_recheck.py [pareto_front.csv] [days_per_month] [hours_per_day] [notebook]
 """
 import json
 import os
@@ -17,8 +17,9 @@ sys.path.insert(0, str(ROOT))
 source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT/"results"/"nsga2_combined"/"pareto_front.csv"
 days = int(sys.argv[2]) if len(sys.argv) > 2 else 3
 hours = int(sys.argv[3]) if len(sys.argv) > 3 else 4
+NOTEBOOK = sys.argv[4] if len(sys.argv) > 4 else "agripv_optimizer_fixed.ipynb"
 
-notebook = json.loads((ROOT/"agripv_optimizer_fixed.ipynb").read_text(encoding="utf-8"))
+notebook = json.loads((ROOT/NOTEBOOK).read_text(encoding="utf-8"))
 ns = {"__name__": "__main__", "display": print}
 for cell in notebook["cells"]:
     if cell["cell_type"] != "code":
