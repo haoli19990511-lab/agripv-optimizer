@@ -293,8 +293,14 @@ class WeightedEngine:
         first, last = namespace["cultivation_period_bounds"](self.scenario)
         if (last-first).days+1 != 365 or any(d.month == 2 and d.day == 29 for d in pd.date_range(first,last)):
             raise ValueError("Use exactly 365 non-leap calendar days for annual PV")
-        if self.crop_days[0] < first.date() or self.crop_days[-1] > last.date():
-            raise ValueError("Complete crop season must be inside annual PV calendar")
+        # Ground irradiation is traced for EVERY day of the PV year, independent of the crop, so that the
+        # crop can be changed without new ray tracing. A crop day outside the PV year (e.g. maize harvested
+        # in October) uses the day of the PV year with the same month and day: the weather is a typical year.
+        self.pv_days = list(pd.date_range(first, last).date)
+        by_month_day = {(d.month, d.day): d for d in self.pv_days}
+        self._pv_day = {d: by_month_day[(d.month, d.day)] for d in self.crop_days}
+        if len(set(self._pv_day.values())) != len(self.crop_days):
+            raise ValueError("A crop season may not be longer than one year")
         if not 0 < config.planted_fraction <= 1 or not 0 < config.grain_dry_matter_fraction <= 1:
             raise ValueError("Invalid area/dry-matter fraction")
         for field in ("minimum_crop_retention", "temperature_factor", "wiring_inverter_factor"):
@@ -346,15 +352,16 @@ class WeightedEngine:
         engine_digests = {name: _code_digest(fn.__code__) for name, fn in engine_code.items()}
         # Physics signature: everything that changes the Radiance result. Prices, costs and
         # the reference design are NOT in it, so changing them reuses the cached ray tracing.
-        self.physics_signature = dict(version="nsga2-v6.5", scenario=asdict(self.scenario), module=asdict(self.module),
-            array=asdict(self.array), settings=settings, crop=asdict(crop_config),
+        # The crop is NOT part of it: the ground is traced for the whole PV year (pv_days).
+        self.physics_signature = dict(version="nsga2-v7-fullyear-ground", scenario=asdict(self.scenario),
+            module=asdict(self.module), array=asdict(self.array), settings=settings, ground_days="pv_year",
             trace_ground_components=config.trace_ground_components,
             weather_sha256=bridge.sha256(self.root/"weather"/self.scenario.weather_filename),
             functions=digests, engine_code=engine_digests, packages=packages)
         # Full signature (evaluation cache): physics plus prices, economic/crop parameters,
         # the reference design and the hashes of the whole source files.
-        self.signature = dict(self.physics_signature, config=asdict(config), files=files,
-            crop_parameters_sha256=bridge.sha256(Path(bridge.__file__).parent/"inputs"/"wheat.yaml"),
+        self.signature = dict(self.physics_signature, config=asdict(config), files=files, crop=asdict(crop_config),
+            crop_parameters_sha256=bridge.sha256(bridge.crop_file_path(crop_config)),
             prices=self.prices.tolist(), reference_design=asdict(reference_design))
         self._reference = None
         self.constructions = ("semi_transparent", "conventional")  # ConstructionEngine narrows this
@@ -379,7 +386,7 @@ class WeightedEngine:
                 IRRAD=float(group.GHI.sum())*3600., DHI_Wh_m2_day=float(group.DHI.sum()),
                 RAIN_mm_day=float(group._crop_rain.sum()) if rain_ok else None)
         for col in next(iter(rows.values())):
-            frame[col] = [rows[d][col] for d in frame.day]
+            frame[col] = [rows[self._pv_day[d]][col] for d in frame.day]
         metadata["shared_clock"] = self.scenario.weather_time_basis
         metadata["natural_irrad_source"] = "same DNI/DHI and actual solar geometry as Radiance"
         return frame, metadata
@@ -510,7 +517,7 @@ class WeightedEngine:
         t0 = time.time()
         hourly, grounds = self.ns["model_for_optimization"](
             design, self.scenario, self.module, resolve_array(self.array, design), calculate_linrui=crop, calculate_hao=True,
-            ground_grid=grids, sampling_config=sampling, crop_dates=self.crop_days,
+            ground_grid=grids, sampling_config=sampling, crop_dates=self.pv_days,
             constructions_to_run=None if crop else ("conventional",), persist_outputs=False,
             ground_components=self.config.trace_ground_components)
         if len(hourly) != 8760:
@@ -523,6 +530,17 @@ class WeightedEngine:
                         sampling=asdict(sampling), design=asdict(design), grids={k:asdict(v) for k,v in grids.items()})
         bridge.save_json(manifest_path, manifest)
         return hourly, grounds, folder
+
+    def _crop_ground(self, ground):
+        """Daily ground irradiation of the crop season (from the full PV year), labelled with the crop dates."""
+        g = ground.copy()
+        g["day"] = pd.to_datetime(g.day).dt.date
+        to_crop = {pv: crop for crop, pv in self._pv_day.items()}
+        g = g[g.day.isin(to_crop)].copy()
+        g["day"] = g.day.map(to_crop)
+        if g.day.nunique() != len(self.crop_days):
+            raise ValueError("Cached ground irradiation does not cover the crop season")
+        return g.sort_values(["point_id", "day"]).reset_index(drop=True)
 
     def reference_yield(self, sampling):
         hourly, _, _ = self._simulation(self.reference_design, sampling, crop=False)
@@ -551,7 +569,7 @@ class WeightedEngine:
             natural, _ = bridge.evaluate_crop_yield_for_hao(self.weather, self.crop_config, grid,
                 scenario_id="natural_light", spatial_mode=spatial_mode)
             if not natural["all_points_mature"]: raise RuntimeError("Natural crop did not mature; fix crop calendar")
-            radiation = grounds[kind].copy()
+            radiation = self._crop_ground(grounds[kind])
             radiation["scenario_id"] = eval_key
             payload, _ = bridge.evaluate_crop_yield_for_hao(self.weather, self.crop_config, grid,
                 radiation, scenario_id=eval_key, provenance={"source":"Radiance + representative sampling", "cache":str(folder)},
@@ -650,7 +668,10 @@ class WeightedEngine:
     def _results_folder(self, name):
         # Fixed tilt keeps the v6 folder names; single-axis/vertical results never overwrite them.
         prefix = "" if self.mounting == "fixed" else f"{self.mounting}_"
-        return self.root/"results"/f"{prefix}{name}"
+        # Winter wheat (the reference crop) keeps the existing names; other crops get their own folders.
+        c = self.crop_config
+        crop = "" if (c.crop_name, c.variety) == ("wheat", "Winter_wheat_103") else f"_{c.crop_name}_{c.variety}"
+        return self.root/"results"/f"{prefix}{name}{crop}"
 
     def _design_fields(self):
         cls = self.ns[DESIGN_CLASSES[self.mounting]]
@@ -788,7 +809,7 @@ class ConstructionEngine(WeightedEngine):
         t0 = time.time()
         hourly, grounds = self.ns["model_for_optimization"](
             design, self.scenario, self.module, resolve_array(self.array, design), calculate_linrui=crop, calculate_hao=True,
-            ground_grid=grids, sampling_config=sampling, crop_dates=self.crop_days,
+            ground_grid=grids, sampling_config=sampling, crop_dates=self.pv_days,
             constructions_to_run=self.constructions if crop else ("conventional",), persist_outputs=False,
             ground_components=self.config.trace_ground_components)
         if len(hourly) != 8760:

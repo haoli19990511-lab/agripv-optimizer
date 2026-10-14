@@ -105,6 +105,12 @@ class CropConfig:
     epw_wind_height_m: float = 10.0
     angstrom_a: float = .29
     angstrom_b: float = .49
+    # Crop selection (WOFOST 7.2 parameter library in inputs/crops). crop_name is the PCSE crop label,
+    # crop_file the YAML file with the variety; end_type "maturity" ends at DVS 2 (at the latest on `end`),
+    # "harvest" ends on `end` (crops such as sugar beet that are harvested before maturity).
+    crop_name: str = "wheat"
+    crop_file: str = "wheat.yaml"
+    end_type: str = "maturity"
 
     def dates(self):
         first, last = date.fromisoformat(self.start), date.fromisoformat(self.end)
@@ -115,6 +121,8 @@ class CropConfig:
             raise ValueError("当前 TMY 是 365 天；此适配器不擅自补造 2 月 29 日天气。")
         if self.start_type not in ("sowing", "emergence"):
             raise ValueError("start_type 只能是 sowing（播种）或 emergence（出苗）。")
+        if self.end_type not in ("maturity", "harvest"):
+            raise ValueError("end_type must be 'maturity' or 'harvest'")
         if self.epw_wind_height_m not in (2.0, 10.0):
             raise ValueError("当前仅实现 2 m 原值或 10 m → 2 m 的风速转换。")
         return days
@@ -169,8 +177,26 @@ def read_epw_daily(path, config):
     return frame, metadata
 
 
+CROP_LIBRARY = ROOT / "inputs" / "crops"  # official WOFOST 7.2 parameter sets, see PROVENANCE.json
+
+
+def crop_file_path(config):
+    path = CROP_LIBRARY / config.crop_file
+    if not path.exists():
+        raise ValueError(f"Unknown crop file {config.crop_file}; available: "
+                         f"{sorted(p.name for p in CROP_LIBRARY.glob('*.yaml') if p.name != 'crops.yaml')}")
+    return path
+
+
+def crop_varieties(crop_file):
+    """Parameter sets (varieties) of one crop file of the library, with their description."""
+    content = yaml.safe_load((CROP_LIBRARY / crop_file).read_text(encoding="utf-8"))
+    return {name: raw.get("Metadata", {}).get("Description", "").strip()
+            for name, raw in content["CropParameters"]["Varieties"].items()}
+
+
 def crop_parameters(config):
-    path = ROOT / "inputs" / "wheat.yaml"
+    path = crop_file_path(config)
     content = yaml.safe_load(path.read_text(encoding="utf-8"))
     varieties = content["CropParameters"]["Varieties"]
     if config.variety not in varieties:
@@ -224,10 +250,10 @@ def run_crop(frame, config, radiation=None):
     site = dict(WOFOST72SiteDataProvider(WAV=20.))
     params = ParameterProvider(cropdata=crop, soildata=soil, sitedata=site)
     first, last = expected_days[0], expected_days[-1]
-    management = [{first: {"CropCalendar": dict(crop_name="wheat", variety_name=config.variety,
+    management = [{first: {"CropCalendar": dict(crop_name=config.crop_name, variety_name=config.variety,
                     crop_start_date=first, crop_start_type=config.start_type, crop_end_date=last,
                     # PCSE counts sowing/emergence day as duration zero.
-                    crop_end_type="maturity", max_duration=(last - first).days),
+                    crop_end_type=config.end_type, max_duration=(last - first).days),
                     "TimedEvents": None, "StateEvents": None}}]
     provider = _weather_provider(frame, config, frame.IRRAD if radiation is None else radiation)
     model = Wofost72_PP(params, provider, management)
@@ -237,7 +263,12 @@ def run_crop(frame, config, radiation=None):
     if not summaries:
         raise RuntimeError("模型没有生成季节汇总，不能输出最终产量。")
     summary = summaries[0]
-    mature = summary.get("DOM") is not None and float(summary.get("DVS", 0)) >= 1.999
+    if config.end_type == "harvest":
+        # Harvested on the calendar date: the season is complete when the simulation reached that day
+        # (PCSE 6.0.13 leaves DOH empty in the summary of a calendar harvest).
+        mature = pd.to_datetime(daily.day.iloc[-1]).date() == last
+    else:
+        mature = summary.get("DOM") is not None and float(summary.get("DVS", 0)) >= 1.999
     for key in ("TWSO", "TAGP", "DVS", "CTRAT"):
         if not math.isfinite(float(summary[key])) or summary[key] < 0:
             raise ValueError(f"模型输出 {key} 无效。")

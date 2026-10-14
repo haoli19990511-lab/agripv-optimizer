@@ -3,9 +3,10 @@
 Executes the notebook's model cells and its control panel with RUN_SEARCH forced to False,
 then runs engine.search() + export() with the panel's settings (POP_SIZE, N_GENERATIONS, SEED,
 SAMPLING, PARALLEL_DESIGNS, prices). Redirect stdout to a log file: convergence.py reads it.
-    python -u analysis/run_search.py [notebook] [--seed N] [--tag NAME] [--conventional-only]
+    python -u analysis/run_search.py [notebook] [--seed N] [--tag NAME] [--conventional-only] [--crop KEY]
 --seed overrides SEED of the control panel; --tag moves the exported folder to <folder>_<tag>
-(so repeated runs do not overwrite each other); --conventional-only optimises conventional modules only.
+(so repeated runs do not overwrite each other); --conventional-only optimises conventional modules only;
+--crop selects a preset of crops.CROP_PRESETS instead of the CROP of the control panel.
 """
 import json
 import os
@@ -21,6 +22,7 @@ args.add_argument("notebook", nargs="?", default="agripv_optimizer_fixed.ipynb")
 args.add_argument("--seed", type=int)
 args.add_argument("--tag")
 args.add_argument("--conventional-only", action="store_true")
+args.add_argument("--crop")
 args = args.parse_args()
 NOTEBOOK = args.notebook
 
@@ -42,13 +44,17 @@ if args.seed is not None:
     ns["SEED"] = args.seed
 if args.conventional_only:
     ns["CONSTRUCTIONS"] = ("conventional",)
+if args.crop:
+    import crops
+    ns["CROP_CONFIG"], ns["ENGINE_CONFIG"] = crops.crop_setup(args.crop, ns["ENGINE_CONFIG"])
 
 engine = make_engine(ns, ns["CROP_CONFIG"], ns["ENGINE_CONFIG"], ns["SAMPLING"], ns["REFERENCE_PV_DESIGN"],
                      ns["PRICE_MODE"], ns["FLAT_PRICE_EUR_KWH"], ns["PRICE_YEARS"],
                      parallel_designs=ns["PARALLEL_DESIGNS"], workers_per_design=ns["WORKERS_PER_DESIGN"],
                      notebook_path=NOTEBOOK, constructions=ns.get("CONSTRUCTIONS", ("semi_transparent", "conventional")))
 print(f"Headless search: {NOTEBOOK}, MOUNTING={ns['MOUNTING']}, POP_SIZE={ns['POP_SIZE']}, "
-      f"N_GENERATIONS={ns['N_GENERATIONS']}, SEED={ns['SEED']}, costs={ns['ENGINE_CONFIG']}", flush=True)
+      f"N_GENERATIONS={ns['N_GENERATIONS']}, SEED={ns['SEED']}, crop={ns['CROP_CONFIG'].crop_name}/"
+      f"{ns['CROP_CONFIG'].variety}, costs={ns['ENGINE_CONFIG']}", flush=True)
 table = engine.search(ns["POP_SIZE"], ns["N_GENERATIONS"], ns["SEED"], ns["DECISION_BOUNDS"], ns["BASE_DESIGN"])
 folder = engine._results_folder(f"nsga2_{engine.sampling.mode}")
 if args.tag:

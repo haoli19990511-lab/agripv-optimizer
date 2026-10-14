@@ -4,6 +4,8 @@ Executes the notebook's model cells (as eval_worker.py does) and its Section D c
 panel with RUN_SEARCH forced to False, then calls engine.recheck() exactly like Section F.
 Run with the agripv environment from the optimizer folder:
     python analysis/run_recheck.py [pareto_front.csv] [days_per_month] [hours_per_day] [notebook]
+                                   [--crop KEY] [--conventional-only]
+--crop evaluates a preset of crops.CROP_PRESETS (the cached ray tracing is reused: only WOFOST runs again).
 """
 import json
 import os
@@ -14,10 +16,16 @@ ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
 sys.path.insert(0, str(ROOT))
 
-source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT/"results"/"nsga2_combined"/"pareto_front.csv"
-days = int(sys.argv[2]) if len(sys.argv) > 2 else 3
-hours = int(sys.argv[3]) if len(sys.argv) > 3 else 4
-NOTEBOOK = sys.argv[4] if len(sys.argv) > 4 else "agripv_optimizer_fixed.ipynb"
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("source", nargs="?", default=str(ROOT/"results"/"nsga2_combined"/"pareto_front.csv"))
+parser.add_argument("days", nargs="?", type=int, default=3)
+parser.add_argument("hours", nargs="?", type=int, default=4)
+parser.add_argument("notebook", nargs="?", default="agripv_optimizer_fixed.ipynb")
+parser.add_argument("--crop")
+parser.add_argument("--conventional-only", action="store_true")
+args = parser.parse_args()
+source, days, hours, NOTEBOOK = Path(args.source), args.days, args.hours, args.notebook
 
 notebook = json.loads((ROOT/NOTEBOOK).read_text(encoding="utf-8"))
 ns = {"__name__": "__main__", "display": print}
@@ -37,6 +45,11 @@ import pandas as pd
 from sampling_core import SamplingConfig
 from weighted_engine import make_engine
 
+if args.crop:
+    import crops
+    ns["CROP_CONFIG"], ns["ENGINE_CONFIG"] = crops.crop_setup(args.crop, ns["ENGINE_CONFIG"])
+if args.conventional_only:
+    ns["CONSTRUCTIONS"] = ("conventional",)
 engine = make_engine(ns, ns["CROP_CONFIG"], ns["ENGINE_CONFIG"], ns["SAMPLING"], ns["REFERENCE_PV_DESIGN"],
                         ns["PRICE_MODE"], ns["FLAT_PRICE_EUR_KWH"], ns["PRICE_YEARS"],
                         parallel_designs=ns["PARALLEL_DESIGNS"], workers_per_design=ns["WORKERS_PER_DESIGN"],
@@ -44,6 +57,7 @@ engine = make_engine(ns, ns["CROP_CONFIG"], ns["ENGINE_CONFIG"], ns["SAMPLING"],
                         constructions=ns.get("CONSTRUCTIONS", ("semi_transparent", "conventional")))
 recheck_source = pd.read_csv(source, float_precision="round_trip")
 print(f"Re-check source: {source} ({recheck_source.design_id.nunique()} designs); "
-      f"sampling combined {days} d/month x {hours} h/day", flush=True)
+      f"sampling combined {days} d/month x {hours} h/day; crop {ns['CROP_CONFIG'].crop_name}/{ns['CROP_CONFIG'].variety}",
+      flush=True)
 table = engine.recheck(recheck_source, SamplingConfig(mode="combined", hours_per_day=hours, days_per_month=days))
 print(table.loc[table.pareto & table.feasible, ["design_id", "pv_type", "n_rows", "LER", "annual_net_eur_ha", "n_skies"]])

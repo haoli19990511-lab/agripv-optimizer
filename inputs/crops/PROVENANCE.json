@@ -1,0 +1,7 @@
+{
+  "source": "https://github.com/ajwdewit/WOFOST_crop_parameters",
+  "branch": "wofost72",
+  "commit": "f0a6491f23685998fa2172b397ff959a3b5ea738",
+  "retrieved": "2026-10-14",
+  "note": "Official WOFOST 7.2 crop parameter sets (23 crops), copied unchanged. wheat.yaml is identical to inputs/wheat.yaml used before (line endings aside)."
+}
