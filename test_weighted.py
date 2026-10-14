@@ -226,6 +226,7 @@ class IntegrationTests(unittest.TestCase):
                 ALIGNED_HOURLY_WEATHER=pd.DataFrame({'GHI':g,'DHI':d}),
                 read_hourly_cultivation_weather=lambda *a:(h,h,met,{}),
                 create_selected_module=lambda *a:None,make_hourly_sky=lambda *a:'sky',
+                centred_scene_origin=lambda *a,**k:{},
                 SimulationContext=lambda **kw:SimpleNamespace(**kw))
         class FakeRadiance:
             def __init__(self,name,**kw):self.name=name;self.materialfiles=[]
