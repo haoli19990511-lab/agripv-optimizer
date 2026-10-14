@@ -37,6 +37,8 @@ def geometry_columns(t):
     """Mounting, structure height and lowest edge per row; rows from v6 tables (or pooled with
     them) lack the v7 columns and are fixed-tilt designs whose clearance is all three heights."""
     mounting = t.mounting.fillna("fixed") if "mounting" in t.columns else pd.Series("fixed", index=t.index)
+    if "clearance_height" not in t.columns:  # single-axis tables always carry the v7 columns
+        return mounting, t.structure_height_m, t.min_clearance_m
     height = t.structure_height_m.fillna(t.clearance_height) if "structure_height_m" in t.columns else t.clearance_height
     low = t.min_clearance_m.fillna(t.clearance_height) if "min_clearance_m" in t.columns else t.clearance_height
     return mounting, height, low
