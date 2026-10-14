@@ -42,8 +42,8 @@ class EngineConfig:
     # cropped (posts, machinery distance), m per row; ASSUMPTION to confirm.
     vertical_structure_eur_kwp: float = 50.
     # German agri-PV bonus (EEG 2023 Sec. 38b, "hoch aufgestaenderte" agri-PV, >= 2.1 m clear height):
-    # 0.5 ct/kWh on top of the market revenue for awards from 2025 on (1.2 ct/kWh in 2023). Only for
-    # tendered plants and still subject to EU state-aid approval (2026) -> report with and without it.
+    # 0.5 ct/kWh on top of the market revenue for awards from 2025 on (1.2 ct/kWh in 2023), only for
+    # tendered plants (Energieagentur RLP 2026). Report the results with and without it.
     # Not granted to vertical systems. 0 switches it off.
     agripv_bonus_eur_kwh: float = .005
     agripv_bonus_min_clearance_m: float = 2.1
