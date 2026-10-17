@@ -6,6 +6,7 @@ Uses whichever re-check folders exist. Writes to results/analysis_mountings/:
   mountings_by_rows.csv      best-income design per mounting type and row count
 """
 import json
+import sys
 
 import matplotlib
 matplotlib.use("Agg")
@@ -14,7 +15,7 @@ import pandas as pd
 
 from common import RESULTS, check_reproduction, load_run, mark_pareto, recompute_economics
 
-RUNS = {"Fixed tilt": "recheck_combined_144skies", "Single-axis": "single_axis_recheck_combined_192skies",
+RUNS = {"Fixed tilt": "recheck_combined_192skies", "Single-axis": "single_axis_recheck_combined_192skies",
         "Vertical": "vertical_recheck_combined_192skies"}
 COL = {"Fixed tilt": "#2a78d6", "Single-axis": "#6b5bb5", "Vertical": "#2f8a4f"}
 MARK = {"Fixed tilt": "o", "Single-axis": "D", "Vertical": "^"}
@@ -40,6 +41,9 @@ def main():
     out = RESULTS/"analysis_mountings"
     out.mkdir(exist_ok=True)
     t = load()
+    subset = sys.argv[1].split(",") if len(sys.argv) > 1 else None
+    if subset:
+        t = t[t.mounting_type.isin(subset)]
     fig, ax = plt.subplots(figsize=(6.4, 4.2))
     for name, g in t.groupby("mounting_type", sort=False):
         ax.scatter(g.LER, g.annual_net_eur_ha/1000, s=10, color=COL[name], alpha=.25, lw=0)
@@ -54,8 +58,11 @@ def main():
     ax.tick_params(colors="#52514e", labelsize=8)
     ax.legend(frameon=False, fontsize=8, loc="lower left")
     fig.tight_layout()
-    fig.savefig(out/"fig_mountings_pareto.png", dpi=250)
+    name = "fig_mountings_pareto" + ("_" + "_".join(n.split()[0].lower() for n in subset) if subset else "")
+    fig.savefig(out/f"{name}.png", dpi=250)
     plt.close(fig)
+    if subset:
+        return
 
     keep = ["mounting_type", "design_id", "n_rows", "pitch", "tilt", "azimuth", "clearance_height", "axis_azimuth",
             "hub_height", "limit_angle", "min_clearance_m", "clear_corridor_m", "LER_crop", "LER_pv", "LER",

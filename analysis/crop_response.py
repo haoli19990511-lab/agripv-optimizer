@@ -16,14 +16,15 @@ import pandas as pd
 from common import COLORS, GREY, LABELS, RESULTS, ROOT
 
 DM = 0.86
-TABLES = {"search (24 skies)": "nsga2_combined", "final re-check (144 skies)": "recheck_combined_144skies"}
+TABLES = {"search (24 skies)": "nsga2_combined", "final re-check (192 skies)": "recheck_combined_192skies"}
 
 
 def load_runs():
     rows = []
     for f in (ROOT/"runs"/"aachen_research").glob("*/Hao_crop_yield.json"):
         d = json.loads(f.read_text(encoding="utf-8"))
-        if d.get("model") != "Wofost72_PP" or d.get("yield_kg_DM_ha") is None:
+        if (d.get("model") != "Wofost72_PP" or d.get("yield_kg_DM_ha") is None
+                or d.get("crop_variety", "Winter_wheat_103") != "Winter_wheat_103"):
             continue
         w = pd.read_csv(f.parent/"actual_model_weather.csv", usecols=["IRRAD"], encoding="utf-8-sig")
         rows.append(dict(scenario=d["scenario_id"], natural=d["scenario_id"] == "natural_light",
@@ -94,7 +95,7 @@ def main():
                    label=f"{LABELS[kind]}, search (24 skies)")
         g = m[(m.pv_type == kind) & m.set.str.startswith("final")]
         ax.scatter(g.rel_irradiation, g.rel_yield, s=26, color=COLORS[kind], edgecolors="white", linewidths=.8,
-                   label=f"{LABELS[kind]}, re-check (144 skies)")
+                   label=f"{LABELS[kind]}, re-check (192 skies)")
     x = np.linspace(m.rel_irradiation.min(), 1, 20)
     ax.plot(x, np.polyval(fit, x), color="#52514e", lw=1, ls="--",
             label=f"Fit to re-check: y = {fit[0]:.2f}x + {fit[1]:.2f}")
