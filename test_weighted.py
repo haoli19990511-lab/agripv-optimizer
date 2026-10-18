@@ -101,7 +101,7 @@ class ObjectiveTests(unittest.TestCase):
                         f'{kind}_array_rear_effective_incident_energy_Wh_hour':[0.,0.]})
         grid=design_grid(Design(),MODULE,ARRAY,kind)
         r=economic_metrics(kind,h,[.1,-.05],Design(),MODULE,ARRAY,grid,8.,10.,True,1200000.,config)
-        self.assertAlmostEqual(r['crop_revenue_eur'],8*grid.area_m2/10000*.97*220)
+        self.assertAlmostEqual(r['crop_revenue_eur'],8*grid.area_m2/10000*.97*config.crop_price_eur_t)
         self.assertAlmostEqual(r['module_peak_w'],144*.182*.091*1000*.228)
         higher=Design(clearance_height=5.)
         r2=economic_metrics(kind,h,[.1,-.05],higher,MODULE,ARRAY,grid,8.,10.,True,1200000.,config)

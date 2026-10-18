@@ -49,8 +49,8 @@ class EngineConfig:
     agripv_bonus_min_clearance_m: float = 2.1
     vertical_row_strip_m: float = .5
     opex_fraction: float = .01
-    crop_price_eur_t: float = 220.
-    crop_cost_eur_planted_ha: float = 1000.
+    crop_price_eur_t: float = 213.1           # winter wheat, NRW planning data 2024 (see crops.py)
+    crop_cost_eur_planted_ha: float = 1120.
     lifetime_years: int = 25
     discount_rate: float = .05
     planted_fraction: float = .97  # uniform effective area loss; no spatial path mask yet

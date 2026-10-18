@@ -9,8 +9,10 @@ Calendars are written in the simulated PV year (1 Oct 2001 - 30 Sep 2002). Dates
 allowed: the weather is a typical meteorological year, so such days use the weather and ground irradiation
 of the same month and day of the PV year (see WeightedEngine.pv_day). A season may last at most one year.
 
-Prices and production costs are ILLUSTRATIVE assumptions for Germany (rounded, about 2023-2025) and
-must be replaced by sourced values (e.g. KTBL, AMI) before the economics of a crop are interpreted.
+Prices and production costs of winter wheat, spring barley, grain maize, potato and sugar beet are the NRW
+planning data (Landwirtschaftskammer Nordrhein-Westfalen 2024, Planungsdeckungsbeitraege 2024/2025): price =
+mean producer price 2019-2024, cost = variable costs (direct + variable machinery costs). The other crops keep
+ILLUSTRATIVE assumptions that must be replaced by sourced values before their economics are interpreted.
 Calendars follow the descriptions of the WOFOST parameter sets (regions and sowing dates in the YAML
 metadata); they are not local trials.
 """
@@ -30,26 +32,26 @@ class CropPreset:
     end: str                  # latest end (maturity) or harvest date
     end_type: str             # "maturity" or "harvest"
     dry_matter_fraction: float  # dry matter of the harvested fresh product (grain at storage moisture, tubers, beets)
-    price_eur_t: float        # price of the fresh harvested product, ILLUSTRATIVE
-    cost_eur_ha: float        # production cost per cropped hectare, ILLUSTRATIVE
+    price_eur_t: float        # price of the fresh harvested product
+    cost_eur_ha: float        # production cost per cropped hectare
     note: str = ""
 
 
 CROP_PRESETS = {
-    # Unchanged reference crop of the thesis (same parameters, calendar and economics as before).
+    # Reference crop of the thesis.
     "winter_wheat": CropPreset("Winter wheat", "wheat", "wheat.yaml", "Winter_wheat_103",
-                               "2001-10-15", "sowing", "2002-08-31", "maturity", .86, 220., 1000.),
+                               "2001-10-15", "sowing", "2002-08-31", "maturity", .86, 213.1, 1120.),
     "spring_barley": CropPreset("Spring barley", "barley", "barley.yaml", "Spring_barley_301",
-                                "2002-03-26", "sowing", "2002-08-31", "maturity", .86, 200., 900.,
+                                "2002-03-26", "sowing", "2002-08-31", "maturity", .86, 196.3, 890.,
                                 "EU15 set; sowing late March in the north"),
     "grain_maize": CropPreset("Grain maize", "maize", "maize.yaml", "Grain_maize_201",
-                              "2002-05-01", "sowing", "2002-10-31", "maturity", .86, 200., 1300.,
+                              "2002-05-01", "sowing", "2002-10-31", "maturity", .86, 218.7, 1690.,
                               "calibrated for Luxembourg and Germany: sowing 1 May, maturity about 20 Oct"),
     "potato": CropPreset("Potato", "potato", "potato.yaml", "Potato_701",
-                         "2002-04-15", "sowing", "2002-09-30", "maturity", .22, 150., 4500.,
+                         "2002-04-15", "sowing", "2002-09-30", "maturity", .22, 197.9, 4930.,
                          "calibrated for northern Europe incl. Germany: sowing 15 April"),
     "sugar_beet": CropPreset("Sugar beet", "sugarbeet", "sugarbeet.yaml", "Sugarbeet_601",
-                             "2002-04-05", "sowing", "2002-10-22", "harvest", .23, 40., 2000.,
+                             "2002-04-05", "sowing", "2002-10-22", "harvest", .23, 42.0, 1620.,
                              "calibrated for Germany and neighbours: sowing 1-10 April, harvest 17-27 Oct"),
     "faba_bean": CropPreset("Faba bean", "fababean", "fababean.yaml", "Faba_bean_801",
                             "2002-03-15", "sowing", "2002-08-31", "maturity", .86, 250., 700., "EU15 set"),
