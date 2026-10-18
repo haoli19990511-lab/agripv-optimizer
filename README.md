@@ -216,6 +216,7 @@ The package itself is built with `python analysis/export_thesis_data.py`.
 | Table 13 | `validate_sampling.py` (full-year runs), then `validation_nrw.py` | `results/sampling_validation/` |
 | Table 14 | `water_limited_check.py` | `results/water_limited_check/` |
 | Convergence and seeds (Section 4.7) | `convergence.py <run> <search log>` | `results/<run>/analysis/hypervolume_*` |
+| Tables 11, 12, single-module tracing (Section 4.7) | `accuracy_tests.py grid`, `hours`, `trace` (new ray tracing) | `results/accuracy_tests/` |
 
 Notes:
 
@@ -223,9 +224,10 @@ Notes:
   `validate_sampling.py`; the shell scripts used for the thesis runs are documented in the run logs.
 * Figure 4-5 uses the stored WOFOST runs in `runs/aachen_research/` (about 28 GB, not distributed). Without them,
   `crop_response.py` rebuilds the figure from the extracted table `results/analysis_crop_response/crop_response_runs.csv`.
-* Tables 11 and 12 and the single-module tracing test of Section 4.7 were computed interactively with the notebook
-  during development (ground grid of 12/48/96 points; 1/2/4/8 sampled hours per day; `PV_TRACE_MODE = "all"`
-  versus `"center"`). They require new ray tracing and are not part of the reproduction script.
+* Tables 11 and 12 and the single-module tracing test of Section 4.7 change settings that enter the ray tracing
+  (ground grid of 12/48/96 points; 1/2/4/8 sampled hours per day; `PV_TRACE_MODE = "all"` versus `"center"`).
+  They are reproduced with new ray tracing by `analysis/accuracy_tests.py grid|hours|trace` (about 10 min, 1–2 h
+  and 5–8 h); `--dry-run` shows the configurations. They are not part of `reproduce_thesis.py`.
 
 ---
 
