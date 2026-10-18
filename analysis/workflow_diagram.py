@@ -58,7 +58,7 @@ obj = box(56, 19, 42, 14, "Objectives and constraints",
           r"max LER = $\mathrm{LER_{crop}}+\mathrm{LER_{PV}}$,  max $I_\mathrm{net}$" "\n"
           "crop ≥ 66 % · clearance ≥ 2.5 m\ncorridor ≥ 1.5 m", "opt")
 fin = box(22, 2, 56, 11, "Re-check and final Pareto front",
-          "Pareto designs re-evaluated with denser sampling\n(144 skies fixed tilt, 192 skies single-axis / vertical)", "opt")
+          "Pareto designs re-evaluated with denser sampling\n(192 skies: 2 days × 8 hours per month, all mounting types)", "opt")
 
 arrow(inp["b"], opt["t"])
 arrow(opt["b"], geo["t"], "candidate design")

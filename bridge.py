@@ -1,4 +1,4 @@
-"""Readable crop-side bridge. No user Notebook execution and no website mutation."""
+"""Crop-model interface (Linrui Li's WOFOST 7.2 / PCSE setup): weather conversion, crop library and simulation."""
 from __future__ import annotations
 
 from dataclasses import dataclass, asdict

@@ -1,5 +1,5 @@
 """Section 4.1 material from the final fixed-tilt re-check (no physics needed).
-    python analysis/results_fixed.py recheck_combined_144skies
+    python analysis/results_fixed.py recheck_combined_192skies
 Writes to results/<run>/analysis/:
   fig_fixed_pareto_bonus.png   Pareto fronts with the agri-PV bonus, conventional front also without it
   fig_fixed_pareto_geometry.png  decision variables along the conventional front
@@ -161,4 +161,4 @@ def main(run):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "recheck_combined_144skies")
+    main(sys.argv[1] if len(sys.argv) > 1 else "recheck_combined_192skies")

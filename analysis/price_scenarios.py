@@ -1,5 +1,5 @@
 """Electricity price years and curtailment at negative prices, from the cached hourly yield (no physics).
-    python analysis/price_scenarios.py recheck_combined_144skies
+    python analysis/price_scenarios.py recheck_combined_192skies
 Revenue is linear in the price, so feeding in at all times with the multi-year mean profile equals the mean of
 the single-year revenues. Curtailment (no feed-in and no agri-PV bonus while the price is negative) is not
 linear, so it is evaluated year by year and then averaged.
@@ -106,4 +106,4 @@ def main(run):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "recheck_combined_144skies")
+    main(sys.argv[1] if len(sys.argv) > 1 else "recheck_combined_192skies")

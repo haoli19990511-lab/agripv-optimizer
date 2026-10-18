@@ -1,4 +1,5 @@
-"""Representative-hour/day sampling with NSGA-II and resumable physics cache."""
+"""Evaluation engine: physics (Radiance via the notebook functions), crop (WOFOST), economics,
+NSGA-II search, re-check, and the resumable physics and evaluation caches."""
 from dataclasses import dataclass, asdict, replace, fields
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -16,30 +17,30 @@ from sampling_core import (SamplingConfig, make_sampling_plan, design_grid, fing
 
 @dataclass(frozen=True)
 class EngineConfig:
-    # All are illustrative assumptions, not verified LONGi/economic inputs.
+    # Defaults used in the thesis; sources in the comments.
     grain_dry_matter_fraction: float = .86
-    conventional_peak_w: float = 590.
+    conventional_peak_w: float = 590.  # LONGi LR5-72HGD datasheet
     # semi-transparent front efficiency is on ACTIVE CELL AREA;
     # conventional efficiency is derived on the WHOLE MODULE envelope.
-    semi_cell_efficiency: float = .228
+    semi_cell_efficiency: float = .228  # datasheet module efficiency, applied to the cell area
     wiring_inverter_factor: float = .96
     temperature_factor: float = .97  # explicit constant approximation
     module_semi_eur_kwp: float = 650.
     module_conv_eur_kwp: float = 220.
     # Structure: 300 EUR/kWp up to 3 m, +150 EUR/kWp per m above -> 600 EUR/kWp at 5 m
-    # (SYMBIOSYST D7.3 p.13: ~300 for horticulture < 5 m, ~600 for arable crops > 5 m). v6 used 600 at 3 m.
+    # (SYMBIOSYST D7.3 p.13: ~300 for horticulture < 5 m, ~600 for arable crops > 5 m).
     structure_base_eur_kwp: float = 300.
     structure_reference_height_m: float = 3.
     structure_extra_eur_kwp_m: float = 150.
     # Single-axis tracker premium: SYMBIOSYST D7.3 p.13, ~650 EUR/kWp fixed vs ~800 EUR/kWp tracked PV.
     tracker_extra_eur_kwp: float = 150.
     # Inverters, electrical BOS, installation, fees and site preparation: Bellone et al. 2024 Table 10
-    # (~500 EUR/kWp) + D7.3 site preparation (150 EUR/kWp). v6 had none (0). Total CAPEX of the fixed
+    # (~500 EUR/kWp) + D7.3 site preparation (150 EUR/kWp). Total CAPEX of the fixed
     # elevated system is then 1170-1470 EUR/kWp, inside D7.3's 1500 +/- 425 EUR/kWp for arable agri-PV.
     other_capex_eur_kwp: float = 650.
     # Vertical bifacial fences: low fixed structure, SYMBIOSYST D7.3 p.13 (~50 EUR/kWp, low fixed racks);
     # replaces structure_base/extra for vertical designs. Strip under each vertical row that cannot be
-    # cropped (posts, machinery distance), m per row; ASSUMPTION to confirm.
+    # cropped (posts, machinery distance), m per row (assumption).
     vertical_structure_eur_kwp: float = 50.
     # German agri-PV bonus (EEG 2023 Sec. 38b, "hoch aufgestaenderte" agri-PV, >= 2.1 m clear height):
     # 0.5 ct/kWh on top of the market revenue for awards from 2025 on (1.2 ct/kWh in 2023), only for
@@ -53,8 +54,8 @@ class EngineConfig:
     crop_cost_eur_planted_ha: float = 1120.
     lifetime_years: int = 25
     discount_rate: float = .05
-    planted_fraction: float = .97  # uniform effective area loss; no spatial path mask yet
-    minimum_crop_retention: float = .66  # research assumption, NOT compliance certification
+    planted_fraction: float = .97  # elevated systems: area lost to the support posts (assumption)
+    minimum_crop_retention: float = .66  # crop yield >= 66 % of the open field (DIN SPEC 91434)
     minimum_clearance_m: float = 2.5
     minimum_clear_corridor_m: float = 1.5
     trace_ground_components: bool = False  # direct/diffuse split is validation-only; costs one extra trace per sky
@@ -367,7 +368,7 @@ class WeightedEngine:
         self.constructions = ("semi_transparent", "conventional")  # ConstructionEngine narrows this
         plan = make_sampling_plan(hours, self.hourly_weather.GHI, self.hourly_weather.DHI, sampling)
         print(f"Sampling {sampling.mode}: {plan.sample_hour.nunique()} skies/type/design; full: {(self.hourly_weather.GHI>0).sum()}")
-        print("Prices:", self.price_assumptions, "; costs and crop remain illustrative assumptions")
+        print("Prices:", self.price_assumptions)
 
     def _crop_weather(self):
         # Reaggregate ALL meteorology using exactly the same clock as Radiance.

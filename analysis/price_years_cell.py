@@ -1,4 +1,4 @@
-# Paste into a NEW cell at the END of agripv_optimizer_v6_nsga2.ipynb, AFTER the search has finished.
+# Paste into a NEW cell at the END of agripv_optimizer_fixed.ipynb, AFTER the search has finished.
 # Re-evaluates the Pareto designs with other electricity-price years. Radiance results come
 # from the cache (same SAMPLING), so only WOFOST + economics run: minutes, not hours.
 # Output: results/nsga2_<mode>/analysis/price_year_scenarios.csv

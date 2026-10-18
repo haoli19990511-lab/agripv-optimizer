@@ -4,7 +4,7 @@ evaluated_candidates.csv has no generation column, so the evaluation order is re
 from the printed log ("NSGA-II <kind> design: {...}" lines and pymoo's n_eval table).
 Save the notebook after the search (Ctrl+S) so the cell output is on disk, then:
     python analysis/convergence.py nsga2_combined [log source] [pop_size]
-log source = the .ipynb (default: agripv_optimizer_v6_nsga2.ipynb) or a .txt copy of the output.
+log source = the .ipynb (default: agripv_optimizer_fixed.ipynb) or the log of analysis/run_search.py.
 Several runs (seeds) can be compared with the same reference point: --ref LER,net
 """
 import ast
@@ -93,7 +93,7 @@ def hv_curve(t, ref, scale):
 
 def main(argv):
     run = argv[0] if argv else "nsga2_combined"
-    source = argv[1] if len(argv) > 1 else ROOT/"agripv_optimizer_v6_nsga2.ipynb"
+    source = argv[1] if len(argv) > 1 else ROOT/"agripv_optimizer_fixed.ipynb"
     table, _, folder = load_run(run)
     t = attach_generation(table, parse(read_log(source)))
     out = folder/"analysis"
