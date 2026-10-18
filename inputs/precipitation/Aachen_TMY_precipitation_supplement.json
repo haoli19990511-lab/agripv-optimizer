@@ -1,0 +1,2605 @@
+{
+  "schema_version": "epw-precipitation-supplement-v1",
+  "status": "UNCALIBRATED_SYNTHETIC_TMY_SUPPLEMENT",
+  "downloaded_at_utc": "2026-10-16T03:23:34.140561+00:00",
+  "source_url": "https://archive-api.open-meteo.com/v1/archive?latitude=50.801000&longitude=6.088000&start_date=2007-01-01&end_date=2020-12-31&daily=precipitation_sum%2Crain_sum%2Csnowfall_sum&models=era5&timezone=Etc%2FGMT-1",
+  "documentation_url": "https://open-meteo.com/en/docs/historical-weather-api",
+  "attribution": "Weather data by Open-Meteo, based on ERA5/Copernicus; CC BY 4.0",
+  "source_epw_sha256": "75bc5461e27cc67db1f87b226e638937827e987e269fb73e43f823c89320e25e",
+  "original_zip_sha256": "cd4d941dd5802f31b4560673016a574e966be6ec7aa156da96b0bf48c27beaaf",
+  "requested_location": {
+    "latitude": 50.801,
+    "longitude": 6.088
+  },
+  "returned_grid": {
+    "latitude": 50.75,
+    "longitude": 6.0,
+    "elevation": 148.0
+  },
+  "daily_timezone": "Etc/GMT-1 (fixed UTC+1, no daylight saving)",
+  "timezone_basis": "EPW LOCATION timezone field is +1; independently verifying original provider timestamps remains necessary.",
+  "source_year_by_month": {
+    "1": 2020,
+    "2": 2020,
+    "3": 2016,
+    "4": 2020,
+    "5": 2007,
+    "6": 2017,
+    "7": 2009,
+    "8": 2011,
+    "9": 2007,
+    "10": 2014,
+    "11": 2015,
+    "12": 2018
+  },
+  "units": {
+    "precipitation_mm_day": "mm/day, rain plus snowfall water equivalent",
+    "rain_mm_day": "mm/day, liquid rain only",
+    "snowfall_cm_day": "cm/day, snowfall depth"
+  },
+  "limitations": [
+    "Gridded ERA5 reanalysis, not measured plot rainfall; grid/version equivalence with original PVGIS data is unverified.",
+    "Month source years match EPW labels; the resulting stitched series is not a continuous historical crop season.",
+    "PVGIS month selection does not establish representative precipitation or drought statistics.",
+    "Adapter explicitly selects liquid rain only; snowfall and delayed snowmelt are excluded.",
+    "Open-field precipitation is not automatically effective under-panel rainfall; panel runoff redistribution is not represented.",
+    "PP mode remains potential production; adding precipitation does not calculate irrigation requirement or dynamic soil storage."
+  ],
+  "records": [
+    {
+      "month_day": "01-01",
+      "source_date": "2020-01-01",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-02",
+      "source_date": "2020-01-02",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-03",
+      "source_date": "2020-01-03",
+      "precipitation_mm_day": 2.8,
+      "rain_mm_day": 2.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-04",
+      "source_date": "2020-01-04",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-05",
+      "source_date": "2020-01-05",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-06",
+      "source_date": "2020-01-06",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-07",
+      "source_date": "2020-01-07",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-08",
+      "source_date": "2020-01-08",
+      "precipitation_mm_day": 3.1,
+      "rain_mm_day": 3.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-09",
+      "source_date": "2020-01-09",
+      "precipitation_mm_day": 5.0,
+      "rain_mm_day": 5.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-10",
+      "source_date": "2020-01-10",
+      "precipitation_mm_day": 5.5,
+      "rain_mm_day": 5.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-11",
+      "source_date": "2020-01-11",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-12",
+      "source_date": "2020-01-12",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-13",
+      "source_date": "2020-01-13",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-14",
+      "source_date": "2020-01-14",
+      "precipitation_mm_day": 1.1,
+      "rain_mm_day": 1.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-15",
+      "source_date": "2020-01-15",
+      "precipitation_mm_day": 0.5,
+      "rain_mm_day": 0.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-16",
+      "source_date": "2020-01-16",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-17",
+      "source_date": "2020-01-17",
+      "precipitation_mm_day": 1.3,
+      "rain_mm_day": 1.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-18",
+      "source_date": "2020-01-18",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-19",
+      "source_date": "2020-01-19",
+      "precipitation_mm_day": 1.3,
+      "rain_mm_day": 1.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-20",
+      "source_date": "2020-01-20",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-21",
+      "source_date": "2020-01-21",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-22",
+      "source_date": "2020-01-22",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-23",
+      "source_date": "2020-01-23",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-24",
+      "source_date": "2020-01-24",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-25",
+      "source_date": "2020-01-25",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-26",
+      "source_date": "2020-01-26",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-27",
+      "source_date": "2020-01-27",
+      "precipitation_mm_day": 7.4,
+      "rain_mm_day": 7.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-28",
+      "source_date": "2020-01-28",
+      "precipitation_mm_day": 5.5,
+      "rain_mm_day": 5.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-29",
+      "source_date": "2020-01-29",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-30",
+      "source_date": "2020-01-30",
+      "precipitation_mm_day": 3.3,
+      "rain_mm_day": 3.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "01-31",
+      "source_date": "2020-01-31",
+      "precipitation_mm_day": 1.1,
+      "rain_mm_day": 1.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-01",
+      "source_date": "2020-02-01",
+      "precipitation_mm_day": 15.6,
+      "rain_mm_day": 15.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-02",
+      "source_date": "2020-02-02",
+      "precipitation_mm_day": 6.4,
+      "rain_mm_day": 6.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-03",
+      "source_date": "2020-02-03",
+      "precipitation_mm_day": 12.2,
+      "rain_mm_day": 12.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-04",
+      "source_date": "2020-02-04",
+      "precipitation_mm_day": 9.2,
+      "rain_mm_day": 9.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-05",
+      "source_date": "2020-02-05",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-06",
+      "source_date": "2020-02-06",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-07",
+      "source_date": "2020-02-07",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-08",
+      "source_date": "2020-02-08",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-09",
+      "source_date": "2020-02-09",
+      "precipitation_mm_day": 4.5,
+      "rain_mm_day": 4.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-10",
+      "source_date": "2020-02-10",
+      "precipitation_mm_day": 16.0,
+      "rain_mm_day": 16.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-11",
+      "source_date": "2020-02-11",
+      "precipitation_mm_day": 2.2,
+      "rain_mm_day": 2.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-12",
+      "source_date": "2020-02-12",
+      "precipitation_mm_day": 3.8,
+      "rain_mm_day": 3.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-13",
+      "source_date": "2020-02-13",
+      "precipitation_mm_day": 5.9,
+      "rain_mm_day": 5.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-14",
+      "source_date": "2020-02-14",
+      "precipitation_mm_day": 0.9,
+      "rain_mm_day": 0.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-15",
+      "source_date": "2020-02-15",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-16",
+      "source_date": "2020-02-16",
+      "precipitation_mm_day": 9.4,
+      "rain_mm_day": 9.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-17",
+      "source_date": "2020-02-17",
+      "precipitation_mm_day": 3.4,
+      "rain_mm_day": 3.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-18",
+      "source_date": "2020-02-18",
+      "precipitation_mm_day": 1.3,
+      "rain_mm_day": 1.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-19",
+      "source_date": "2020-02-19",
+      "precipitation_mm_day": 8.6,
+      "rain_mm_day": 8.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-20",
+      "source_date": "2020-02-20",
+      "precipitation_mm_day": 5.8,
+      "rain_mm_day": 5.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-21",
+      "source_date": "2020-02-21",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-22",
+      "source_date": "2020-02-22",
+      "precipitation_mm_day": 1.5,
+      "rain_mm_day": 1.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-23",
+      "source_date": "2020-02-23",
+      "precipitation_mm_day": 9.9,
+      "rain_mm_day": 9.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-24",
+      "source_date": "2020-02-24",
+      "precipitation_mm_day": 5.1,
+      "rain_mm_day": 5.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-25",
+      "source_date": "2020-02-25",
+      "precipitation_mm_day": 8.1,
+      "rain_mm_day": 8.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "02-26",
+      "source_date": "2020-02-26",
+      "precipitation_mm_day": 4.8,
+      "rain_mm_day": 2.6,
+      "snowfall_cm_day": 1.54
+    },
+    {
+      "month_day": "02-27",
+      "source_date": "2020-02-27",
+      "precipitation_mm_day": 14.4,
+      "rain_mm_day": 5.1,
+      "snowfall_cm_day": 6.51
+    },
+    {
+      "month_day": "02-28",
+      "source_date": "2020-02-28",
+      "precipitation_mm_day": 3.7,
+      "rain_mm_day": 3.5,
+      "snowfall_cm_day": 0.14
+    },
+    {
+      "month_day": "03-01",
+      "source_date": "2016-03-01",
+      "precipitation_mm_day": 3.8,
+      "rain_mm_day": 3.7,
+      "snowfall_cm_day": 0.07
+    },
+    {
+      "month_day": "03-02",
+      "source_date": "2016-03-02",
+      "precipitation_mm_day": 3.7,
+      "rain_mm_day": 3.4,
+      "snowfall_cm_day": 0.21
+    },
+    {
+      "month_day": "03-03",
+      "source_date": "2016-03-03",
+      "precipitation_mm_day": 4.5,
+      "rain_mm_day": 0.6,
+      "snowfall_cm_day": 2.73
+    },
+    {
+      "month_day": "03-04",
+      "source_date": "2016-03-04",
+      "precipitation_mm_day": 8.1,
+      "rain_mm_day": 4.8,
+      "snowfall_cm_day": 2.31
+    },
+    {
+      "month_day": "03-05",
+      "source_date": "2016-03-05",
+      "precipitation_mm_day": 5.0,
+      "rain_mm_day": 1.2,
+      "snowfall_cm_day": 2.66
+    },
+    {
+      "month_day": "03-06",
+      "source_date": "2016-03-06",
+      "precipitation_mm_day": 6.2,
+      "rain_mm_day": 3.9,
+      "snowfall_cm_day": 1.61
+    },
+    {
+      "month_day": "03-07",
+      "source_date": "2016-03-07",
+      "precipitation_mm_day": 1.8,
+      "rain_mm_day": 1.0,
+      "snowfall_cm_day": 0.7
+    },
+    {
+      "month_day": "03-08",
+      "source_date": "2016-03-08",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-09",
+      "source_date": "2016-03-09",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-10",
+      "source_date": "2016-03-10",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-11",
+      "source_date": "2016-03-11",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-12",
+      "source_date": "2016-03-12",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-13",
+      "source_date": "2016-03-13",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-14",
+      "source_date": "2016-03-14",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-15",
+      "source_date": "2016-03-15",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-16",
+      "source_date": "2016-03-16",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-17",
+      "source_date": "2016-03-17",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-18",
+      "source_date": "2016-03-18",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-19",
+      "source_date": "2016-03-19",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-20",
+      "source_date": "2016-03-20",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-21",
+      "source_date": "2016-03-21",
+      "precipitation_mm_day": 0.8,
+      "rain_mm_day": 0.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-22",
+      "source_date": "2016-03-22",
+      "precipitation_mm_day": 1.8,
+      "rain_mm_day": 1.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-23",
+      "source_date": "2016-03-23",
+      "precipitation_mm_day": 1.0,
+      "rain_mm_day": 1.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-24",
+      "source_date": "2016-03-24",
+      "precipitation_mm_day": 0.9,
+      "rain_mm_day": 0.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-25",
+      "source_date": "2016-03-25",
+      "precipitation_mm_day": 7.7,
+      "rain_mm_day": 7.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-26",
+      "source_date": "2016-03-26",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-27",
+      "source_date": "2016-03-27",
+      "precipitation_mm_day": 3.8,
+      "rain_mm_day": 3.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-28",
+      "source_date": "2016-03-28",
+      "precipitation_mm_day": 8.8,
+      "rain_mm_day": 8.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-29",
+      "source_date": "2016-03-29",
+      "precipitation_mm_day": 1.8,
+      "rain_mm_day": 1.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-30",
+      "source_date": "2016-03-30",
+      "precipitation_mm_day": 4.1,
+      "rain_mm_day": 4.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "03-31",
+      "source_date": "2016-03-31",
+      "precipitation_mm_day": 12.1,
+      "rain_mm_day": 12.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-01",
+      "source_date": "2020-04-01",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-02",
+      "source_date": "2020-04-02",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-03",
+      "source_date": "2020-04-03",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-04",
+      "source_date": "2020-04-04",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-05",
+      "source_date": "2020-04-05",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-06",
+      "source_date": "2020-04-06",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-07",
+      "source_date": "2020-04-07",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-08",
+      "source_date": "2020-04-08",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-09",
+      "source_date": "2020-04-09",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-10",
+      "source_date": "2020-04-10",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-11",
+      "source_date": "2020-04-11",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-12",
+      "source_date": "2020-04-12",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-13",
+      "source_date": "2020-04-13",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-14",
+      "source_date": "2020-04-14",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-15",
+      "source_date": "2020-04-15",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-16",
+      "source_date": "2020-04-16",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-17",
+      "source_date": "2020-04-17",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-18",
+      "source_date": "2020-04-18",
+      "precipitation_mm_day": 6.5,
+      "rain_mm_day": 6.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-19",
+      "source_date": "2020-04-19",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-20",
+      "source_date": "2020-04-20",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-21",
+      "source_date": "2020-04-21",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-22",
+      "source_date": "2020-04-22",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-23",
+      "source_date": "2020-04-23",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-24",
+      "source_date": "2020-04-24",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-25",
+      "source_date": "2020-04-25",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-26",
+      "source_date": "2020-04-26",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-27",
+      "source_date": "2020-04-27",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-28",
+      "source_date": "2020-04-28",
+      "precipitation_mm_day": 5.5,
+      "rain_mm_day": 5.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-29",
+      "source_date": "2020-04-29",
+      "precipitation_mm_day": 3.3,
+      "rain_mm_day": 3.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "04-30",
+      "source_date": "2020-04-30",
+      "precipitation_mm_day": 6.7,
+      "rain_mm_day": 6.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-01",
+      "source_date": "2007-05-01",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-02",
+      "source_date": "2007-05-02",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-03",
+      "source_date": "2007-05-03",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-04",
+      "source_date": "2007-05-04",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-05",
+      "source_date": "2007-05-05",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-06",
+      "source_date": "2007-05-06",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-07",
+      "source_date": "2007-05-07",
+      "precipitation_mm_day": 8.7,
+      "rain_mm_day": 8.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-08",
+      "source_date": "2007-05-08",
+      "precipitation_mm_day": 6.0,
+      "rain_mm_day": 6.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-09",
+      "source_date": "2007-05-09",
+      "precipitation_mm_day": 8.2,
+      "rain_mm_day": 8.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-10",
+      "source_date": "2007-05-10",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-11",
+      "source_date": "2007-05-11",
+      "precipitation_mm_day": 1.1,
+      "rain_mm_day": 1.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-12",
+      "source_date": "2007-05-12",
+      "precipitation_mm_day": 3.9,
+      "rain_mm_day": 3.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-13",
+      "source_date": "2007-05-13",
+      "precipitation_mm_day": 8.2,
+      "rain_mm_day": 8.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-14",
+      "source_date": "2007-05-14",
+      "precipitation_mm_day": 1.2,
+      "rain_mm_day": 1.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-15",
+      "source_date": "2007-05-15",
+      "precipitation_mm_day": 5.5,
+      "rain_mm_day": 5.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-16",
+      "source_date": "2007-05-16",
+      "precipitation_mm_day": 9.9,
+      "rain_mm_day": 9.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-17",
+      "source_date": "2007-05-17",
+      "precipitation_mm_day": 6.9,
+      "rain_mm_day": 6.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-18",
+      "source_date": "2007-05-18",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-19",
+      "source_date": "2007-05-19",
+      "precipitation_mm_day": 3.1,
+      "rain_mm_day": 3.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-20",
+      "source_date": "2007-05-20",
+      "precipitation_mm_day": 2.6,
+      "rain_mm_day": 2.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-21",
+      "source_date": "2007-05-21",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-22",
+      "source_date": "2007-05-22",
+      "precipitation_mm_day": 11.0,
+      "rain_mm_day": 11.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-23",
+      "source_date": "2007-05-23",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-24",
+      "source_date": "2007-05-24",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-25",
+      "source_date": "2007-05-25",
+      "precipitation_mm_day": 0.7,
+      "rain_mm_day": 0.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-26",
+      "source_date": "2007-05-26",
+      "precipitation_mm_day": 2.7,
+      "rain_mm_day": 2.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-27",
+      "source_date": "2007-05-27",
+      "precipitation_mm_day": 2.3,
+      "rain_mm_day": 2.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-28",
+      "source_date": "2007-05-28",
+      "precipitation_mm_day": 5.9,
+      "rain_mm_day": 5.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-29",
+      "source_date": "2007-05-29",
+      "precipitation_mm_day": 3.8,
+      "rain_mm_day": 3.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-30",
+      "source_date": "2007-05-30",
+      "precipitation_mm_day": 0.5,
+      "rain_mm_day": 0.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "05-31",
+      "source_date": "2007-05-31",
+      "precipitation_mm_day": 6.7,
+      "rain_mm_day": 6.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-01",
+      "source_date": "2017-06-01",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-02",
+      "source_date": "2017-06-02",
+      "precipitation_mm_day": 3.5,
+      "rain_mm_day": 3.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-03",
+      "source_date": "2017-06-03",
+      "precipitation_mm_day": 6.8,
+      "rain_mm_day": 6.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-04",
+      "source_date": "2017-06-04",
+      "precipitation_mm_day": 6.6,
+      "rain_mm_day": 6.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-05",
+      "source_date": "2017-06-05",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-06",
+      "source_date": "2017-06-06",
+      "precipitation_mm_day": 4.2,
+      "rain_mm_day": 4.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-07",
+      "source_date": "2017-06-07",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-08",
+      "source_date": "2017-06-08",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-09",
+      "source_date": "2017-06-09",
+      "precipitation_mm_day": 12.7,
+      "rain_mm_day": 12.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-10",
+      "source_date": "2017-06-10",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-11",
+      "source_date": "2017-06-11",
+      "precipitation_mm_day": 1.0,
+      "rain_mm_day": 1.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-12",
+      "source_date": "2017-06-12",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-13",
+      "source_date": "2017-06-13",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-14",
+      "source_date": "2017-06-14",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-15",
+      "source_date": "2017-06-15",
+      "precipitation_mm_day": 3.2,
+      "rain_mm_day": 3.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-16",
+      "source_date": "2017-06-16",
+      "precipitation_mm_day": 0.6,
+      "rain_mm_day": 0.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-17",
+      "source_date": "2017-06-17",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-18",
+      "source_date": "2017-06-18",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-19",
+      "source_date": "2017-06-19",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-20",
+      "source_date": "2017-06-20",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-21",
+      "source_date": "2017-06-21",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-22",
+      "source_date": "2017-06-22",
+      "precipitation_mm_day": 6.7,
+      "rain_mm_day": 6.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-23",
+      "source_date": "2017-06-23",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-24",
+      "source_date": "2017-06-24",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-25",
+      "source_date": "2017-06-25",
+      "precipitation_mm_day": 1.0,
+      "rain_mm_day": 1.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-26",
+      "source_date": "2017-06-26",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-27",
+      "source_date": "2017-06-27",
+      "precipitation_mm_day": 11.3,
+      "rain_mm_day": 11.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-28",
+      "source_date": "2017-06-28",
+      "precipitation_mm_day": 10.0,
+      "rain_mm_day": 10.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-29",
+      "source_date": "2017-06-29",
+      "precipitation_mm_day": 6.6,
+      "rain_mm_day": 6.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "06-30",
+      "source_date": "2017-06-30",
+      "precipitation_mm_day": 0.6,
+      "rain_mm_day": 0.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-01",
+      "source_date": "2009-07-01",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-02",
+      "source_date": "2009-07-02",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-03",
+      "source_date": "2009-07-03",
+      "precipitation_mm_day": 7.4,
+      "rain_mm_day": 7.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-04",
+      "source_date": "2009-07-04",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-05",
+      "source_date": "2009-07-05",
+      "precipitation_mm_day": 3.4,
+      "rain_mm_day": 3.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-06",
+      "source_date": "2009-07-06",
+      "precipitation_mm_day": 1.3,
+      "rain_mm_day": 1.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-07",
+      "source_date": "2009-07-07",
+      "precipitation_mm_day": 0.9,
+      "rain_mm_day": 0.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-08",
+      "source_date": "2009-07-08",
+      "precipitation_mm_day": 13.8,
+      "rain_mm_day": 13.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-09",
+      "source_date": "2009-07-09",
+      "precipitation_mm_day": 1.0,
+      "rain_mm_day": 1.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-10",
+      "source_date": "2009-07-10",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-11",
+      "source_date": "2009-07-11",
+      "precipitation_mm_day": 1.4,
+      "rain_mm_day": 1.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-12",
+      "source_date": "2009-07-12",
+      "precipitation_mm_day": 1.5,
+      "rain_mm_day": 1.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-13",
+      "source_date": "2009-07-13",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-14",
+      "source_date": "2009-07-14",
+      "precipitation_mm_day": 1.2,
+      "rain_mm_day": 1.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-15",
+      "source_date": "2009-07-15",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-16",
+      "source_date": "2009-07-16",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-17",
+      "source_date": "2009-07-17",
+      "precipitation_mm_day": 3.0,
+      "rain_mm_day": 3.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-18",
+      "source_date": "2009-07-18",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-19",
+      "source_date": "2009-07-19",
+      "precipitation_mm_day": 6.8,
+      "rain_mm_day": 6.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-20",
+      "source_date": "2009-07-20",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-21",
+      "source_date": "2009-07-21",
+      "precipitation_mm_day": 4.4,
+      "rain_mm_day": 4.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-22",
+      "source_date": "2009-07-22",
+      "precipitation_mm_day": 7.3,
+      "rain_mm_day": 7.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-23",
+      "source_date": "2009-07-23",
+      "precipitation_mm_day": 22.8,
+      "rain_mm_day": 22.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-24",
+      "source_date": "2009-07-24",
+      "precipitation_mm_day": 7.1,
+      "rain_mm_day": 7.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-25",
+      "source_date": "2009-07-25",
+      "precipitation_mm_day": 1.7,
+      "rain_mm_day": 1.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-26",
+      "source_date": "2009-07-26",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-27",
+      "source_date": "2009-07-27",
+      "precipitation_mm_day": 1.2,
+      "rain_mm_day": 1.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-28",
+      "source_date": "2009-07-28",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-29",
+      "source_date": "2009-07-29",
+      "precipitation_mm_day": 0.5,
+      "rain_mm_day": 0.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-30",
+      "source_date": "2009-07-30",
+      "precipitation_mm_day": 0.8,
+      "rain_mm_day": 0.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "07-31",
+      "source_date": "2009-07-31",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-01",
+      "source_date": "2011-08-01",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-02",
+      "source_date": "2011-08-02",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-03",
+      "source_date": "2011-08-03",
+      "precipitation_mm_day": 6.7,
+      "rain_mm_day": 6.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-04",
+      "source_date": "2011-08-04",
+      "precipitation_mm_day": 7.2,
+      "rain_mm_day": 7.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-05",
+      "source_date": "2011-08-05",
+      "precipitation_mm_day": 1.8,
+      "rain_mm_day": 1.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-06",
+      "source_date": "2011-08-06",
+      "precipitation_mm_day": 11.6,
+      "rain_mm_day": 11.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-07",
+      "source_date": "2011-08-07",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-08",
+      "source_date": "2011-08-08",
+      "precipitation_mm_day": 7.5,
+      "rain_mm_day": 7.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-09",
+      "source_date": "2011-08-09",
+      "precipitation_mm_day": 4.0,
+      "rain_mm_day": 4.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-10",
+      "source_date": "2011-08-10",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-11",
+      "source_date": "2011-08-11",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-12",
+      "source_date": "2011-08-12",
+      "precipitation_mm_day": 2.6,
+      "rain_mm_day": 2.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-13",
+      "source_date": "2011-08-13",
+      "precipitation_mm_day": 2.8,
+      "rain_mm_day": 2.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-14",
+      "source_date": "2011-08-14",
+      "precipitation_mm_day": 7.0,
+      "rain_mm_day": 7.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-15",
+      "source_date": "2011-08-15",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-16",
+      "source_date": "2011-08-16",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-17",
+      "source_date": "2011-08-17",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-18",
+      "source_date": "2011-08-18",
+      "precipitation_mm_day": 5.3,
+      "rain_mm_day": 5.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-19",
+      "source_date": "2011-08-19",
+      "precipitation_mm_day": 1.4,
+      "rain_mm_day": 1.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-20",
+      "source_date": "2011-08-20",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-21",
+      "source_date": "2011-08-21",
+      "precipitation_mm_day": 12.4,
+      "rain_mm_day": 12.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-22",
+      "source_date": "2011-08-22",
+      "precipitation_mm_day": 4.1,
+      "rain_mm_day": 4.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-23",
+      "source_date": "2011-08-23",
+      "precipitation_mm_day": 16.9,
+      "rain_mm_day": 16.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-24",
+      "source_date": "2011-08-24",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-25",
+      "source_date": "2011-08-25",
+      "precipitation_mm_day": 2.4,
+      "rain_mm_day": 2.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-26",
+      "source_date": "2011-08-26",
+      "precipitation_mm_day": 3.9,
+      "rain_mm_day": 3.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-27",
+      "source_date": "2011-08-27",
+      "precipitation_mm_day": 9.3,
+      "rain_mm_day": 9.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-28",
+      "source_date": "2011-08-28",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-29",
+      "source_date": "2011-08-29",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-30",
+      "source_date": "2011-08-30",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "08-31",
+      "source_date": "2011-08-31",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-01",
+      "source_date": "2007-09-01",
+      "precipitation_mm_day": 3.4,
+      "rain_mm_day": 3.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-02",
+      "source_date": "2007-09-02",
+      "precipitation_mm_day": 1.1,
+      "rain_mm_day": 1.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-03",
+      "source_date": "2007-09-03",
+      "precipitation_mm_day": 5.6,
+      "rain_mm_day": 5.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-04",
+      "source_date": "2007-09-04",
+      "precipitation_mm_day": 1.4,
+      "rain_mm_day": 1.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-05",
+      "source_date": "2007-09-05",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-06",
+      "source_date": "2007-09-06",
+      "precipitation_mm_day": 1.3,
+      "rain_mm_day": 1.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-07",
+      "source_date": "2007-09-07",
+      "precipitation_mm_day": 0.6,
+      "rain_mm_day": 0.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-08",
+      "source_date": "2007-09-08",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-09",
+      "source_date": "2007-09-09",
+      "precipitation_mm_day": 2.1,
+      "rain_mm_day": 2.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-10",
+      "source_date": "2007-09-10",
+      "precipitation_mm_day": 4.3,
+      "rain_mm_day": 4.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-11",
+      "source_date": "2007-09-11",
+      "precipitation_mm_day": 0.7,
+      "rain_mm_day": 0.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-12",
+      "source_date": "2007-09-12",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-13",
+      "source_date": "2007-09-13",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-14",
+      "source_date": "2007-09-14",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-15",
+      "source_date": "2007-09-15",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-16",
+      "source_date": "2007-09-16",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-17",
+      "source_date": "2007-09-17",
+      "precipitation_mm_day": 3.6,
+      "rain_mm_day": 3.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-18",
+      "source_date": "2007-09-18",
+      "precipitation_mm_day": 11.5,
+      "rain_mm_day": 11.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-19",
+      "source_date": "2007-09-19",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-20",
+      "source_date": "2007-09-20",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-21",
+      "source_date": "2007-09-21",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-22",
+      "source_date": "2007-09-22",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-23",
+      "source_date": "2007-09-23",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-24",
+      "source_date": "2007-09-24",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-25",
+      "source_date": "2007-09-25",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-26",
+      "source_date": "2007-09-26",
+      "precipitation_mm_day": 5.4,
+      "rain_mm_day": 5.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-27",
+      "source_date": "2007-09-27",
+      "precipitation_mm_day": 16.6,
+      "rain_mm_day": 16.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-28",
+      "source_date": "2007-09-28",
+      "precipitation_mm_day": 6.8,
+      "rain_mm_day": 6.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-29",
+      "source_date": "2007-09-29",
+      "precipitation_mm_day": 5.7,
+      "rain_mm_day": 5.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "09-30",
+      "source_date": "2007-09-30",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-01",
+      "source_date": "2014-10-01",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-02",
+      "source_date": "2014-10-02",
+      "precipitation_mm_day": 0.2,
+      "rain_mm_day": 0.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-03",
+      "source_date": "2014-10-03",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-04",
+      "source_date": "2014-10-04",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-05",
+      "source_date": "2014-10-05",
+      "precipitation_mm_day": 4.0,
+      "rain_mm_day": 4.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-06",
+      "source_date": "2014-10-06",
+      "precipitation_mm_day": 0.6,
+      "rain_mm_day": 0.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-07",
+      "source_date": "2014-10-07",
+      "precipitation_mm_day": 9.6,
+      "rain_mm_day": 9.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-08",
+      "source_date": "2014-10-08",
+      "precipitation_mm_day": 19.4,
+      "rain_mm_day": 19.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-09",
+      "source_date": "2014-10-09",
+      "precipitation_mm_day": 4.2,
+      "rain_mm_day": 4.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-10",
+      "source_date": "2014-10-10",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-11",
+      "source_date": "2014-10-11",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-12",
+      "source_date": "2014-10-12",
+      "precipitation_mm_day": 8.1,
+      "rain_mm_day": 8.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-13",
+      "source_date": "2014-10-13",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-14",
+      "source_date": "2014-10-14",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-15",
+      "source_date": "2014-10-15",
+      "precipitation_mm_day": 3.7,
+      "rain_mm_day": 3.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-16",
+      "source_date": "2014-10-16",
+      "precipitation_mm_day": 4.6,
+      "rain_mm_day": 4.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-17",
+      "source_date": "2014-10-17",
+      "precipitation_mm_day": 4.4,
+      "rain_mm_day": 4.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-18",
+      "source_date": "2014-10-18",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-19",
+      "source_date": "2014-10-19",
+      "precipitation_mm_day": 0.5,
+      "rain_mm_day": 0.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-20",
+      "source_date": "2014-10-20",
+      "precipitation_mm_day": 0.1,
+      "rain_mm_day": 0.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-21",
+      "source_date": "2014-10-21",
+      "precipitation_mm_day": 8.4,
+      "rain_mm_day": 8.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-22",
+      "source_date": "2014-10-22",
+      "precipitation_mm_day": 2.4,
+      "rain_mm_day": 2.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-23",
+      "source_date": "2014-10-23",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-24",
+      "source_date": "2014-10-24",
+      "precipitation_mm_day": 2.3,
+      "rain_mm_day": 2.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-25",
+      "source_date": "2014-10-25",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-26",
+      "source_date": "2014-10-26",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-27",
+      "source_date": "2014-10-27",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-28",
+      "source_date": "2014-10-28",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-29",
+      "source_date": "2014-10-29",
+      "precipitation_mm_day": 4.5,
+      "rain_mm_day": 4.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-30",
+      "source_date": "2014-10-30",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "10-31",
+      "source_date": "2014-10-31",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-01",
+      "source_date": "2015-11-01",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-02",
+      "source_date": "2015-11-02",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-03",
+      "source_date": "2015-11-03",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-04",
+      "source_date": "2015-11-04",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-05",
+      "source_date": "2015-11-05",
+      "precipitation_mm_day": 1.2,
+      "rain_mm_day": 1.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-06",
+      "source_date": "2015-11-06",
+      "precipitation_mm_day": 1.8,
+      "rain_mm_day": 1.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-07",
+      "source_date": "2015-11-07",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-08",
+      "source_date": "2015-11-08",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-09",
+      "source_date": "2015-11-09",
+      "precipitation_mm_day": 0.6,
+      "rain_mm_day": 0.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-10",
+      "source_date": "2015-11-10",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-11",
+      "source_date": "2015-11-11",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-12",
+      "source_date": "2015-11-12",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-13",
+      "source_date": "2015-11-13",
+      "precipitation_mm_day": 2.2,
+      "rain_mm_day": 2.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-14",
+      "source_date": "2015-11-14",
+      "precipitation_mm_day": 5.4,
+      "rain_mm_day": 5.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-15",
+      "source_date": "2015-11-15",
+      "precipitation_mm_day": 1.4,
+      "rain_mm_day": 1.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-16",
+      "source_date": "2015-11-16",
+      "precipitation_mm_day": 4.3,
+      "rain_mm_day": 4.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-17",
+      "source_date": "2015-11-17",
+      "precipitation_mm_day": 8.4,
+      "rain_mm_day": 8.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-18",
+      "source_date": "2015-11-18",
+      "precipitation_mm_day": 0.4,
+      "rain_mm_day": 0.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-19",
+      "source_date": "2015-11-19",
+      "precipitation_mm_day": 22.9,
+      "rain_mm_day": 22.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-20",
+      "source_date": "2015-11-20",
+      "precipitation_mm_day": 2.1,
+      "rain_mm_day": 2.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-21",
+      "source_date": "2015-11-21",
+      "precipitation_mm_day": 2.4,
+      "rain_mm_day": 2.2,
+      "snowfall_cm_day": 0.14
+    },
+    {
+      "month_day": "11-22",
+      "source_date": "2015-11-22",
+      "precipitation_mm_day": 3.1,
+      "rain_mm_day": 1.7,
+      "snowfall_cm_day": 1.12
+    },
+    {
+      "month_day": "11-23",
+      "source_date": "2015-11-23",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-24",
+      "source_date": "2015-11-24",
+      "precipitation_mm_day": 5.2,
+      "rain_mm_day": 3.1,
+      "snowfall_cm_day": 1.47
+    },
+    {
+      "month_day": "11-25",
+      "source_date": "2015-11-25",
+      "precipitation_mm_day": 4.6,
+      "rain_mm_day": 4.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-26",
+      "source_date": "2015-11-26",
+      "precipitation_mm_day": 0.8,
+      "rain_mm_day": 0.7,
+      "snowfall_cm_day": 0.07
+    },
+    {
+      "month_day": "11-27",
+      "source_date": "2015-11-27",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-28",
+      "source_date": "2015-11-28",
+      "precipitation_mm_day": 3.0,
+      "rain_mm_day": 3.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-29",
+      "source_date": "2015-11-29",
+      "precipitation_mm_day": 14.3,
+      "rain_mm_day": 14.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "11-30",
+      "source_date": "2015-11-30",
+      "precipitation_mm_day": 21.9,
+      "rain_mm_day": 21.9,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-01",
+      "source_date": "2018-12-01",
+      "precipitation_mm_day": 1.8,
+      "rain_mm_day": 1.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-02",
+      "source_date": "2018-12-02",
+      "precipitation_mm_day": 15.7,
+      "rain_mm_day": 15.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-03",
+      "source_date": "2018-12-03",
+      "precipitation_mm_day": 10.5,
+      "rain_mm_day": 10.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-04",
+      "source_date": "2018-12-04",
+      "precipitation_mm_day": 2.6,
+      "rain_mm_day": 2.6,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-05",
+      "source_date": "2018-12-05",
+      "precipitation_mm_day": 3.3,
+      "rain_mm_day": 3.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-06",
+      "source_date": "2018-12-06",
+      "precipitation_mm_day": 2.5,
+      "rain_mm_day": 2.5,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-07",
+      "source_date": "2018-12-07",
+      "precipitation_mm_day": 7.7,
+      "rain_mm_day": 7.7,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-08",
+      "source_date": "2018-12-08",
+      "precipitation_mm_day": 12.0,
+      "rain_mm_day": 12.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-09",
+      "source_date": "2018-12-09",
+      "precipitation_mm_day": 15.1,
+      "rain_mm_day": 15.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-10",
+      "source_date": "2018-12-10",
+      "precipitation_mm_day": 4.4,
+      "rain_mm_day": 4.4,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-11",
+      "source_date": "2018-12-11",
+      "precipitation_mm_day": 0.8,
+      "rain_mm_day": 0.8,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-12",
+      "source_date": "2018-12-12",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-13",
+      "source_date": "2018-12-13",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-14",
+      "source_date": "2018-12-14",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-15",
+      "source_date": "2018-12-15",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.07
+    },
+    {
+      "month_day": "12-16",
+      "source_date": "2018-12-16",
+      "precipitation_mm_day": 5.3,
+      "rain_mm_day": 0.9,
+      "snowfall_cm_day": 3.08
+    },
+    {
+      "month_day": "12-17",
+      "source_date": "2018-12-17",
+      "precipitation_mm_day": 0.3,
+      "rain_mm_day": 0.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-18",
+      "source_date": "2018-12-18",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-19",
+      "source_date": "2018-12-19",
+      "precipitation_mm_day": 2.0,
+      "rain_mm_day": 2.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-20",
+      "source_date": "2018-12-20",
+      "precipitation_mm_day": 2.0,
+      "rain_mm_day": 2.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-21",
+      "source_date": "2018-12-21",
+      "precipitation_mm_day": 11.2,
+      "rain_mm_day": 11.2,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-22",
+      "source_date": "2018-12-22",
+      "precipitation_mm_day": 5.3,
+      "rain_mm_day": 5.3,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-23",
+      "source_date": "2018-12-23",
+      "precipitation_mm_day": 17.1,
+      "rain_mm_day": 17.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-24",
+      "source_date": "2018-12-24",
+      "precipitation_mm_day": 2.1,
+      "rain_mm_day": 2.1,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-25",
+      "source_date": "2018-12-25",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-26",
+      "source_date": "2018-12-26",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-27",
+      "source_date": "2018-12-27",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-28",
+      "source_date": "2018-12-28",
+      "precipitation_mm_day": 0.0,
+      "rain_mm_day": 0.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-29",
+      "source_date": "2018-12-29",
+      "precipitation_mm_day": 1.0,
+      "rain_mm_day": 1.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-30",
+      "source_date": "2018-12-30",
+      "precipitation_mm_day": 1.0,
+      "rain_mm_day": 1.0,
+      "snowfall_cm_day": 0.0
+    },
+    {
+      "month_day": "12-31",
+      "source_date": "2018-12-31",
+      "precipitation_mm_day": 3.5,
+      "rain_mm_day": 3.5,
+      "snowfall_cm_day": 0.0
+    }
+  ]
+}
