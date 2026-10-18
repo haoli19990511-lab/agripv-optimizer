@@ -26,6 +26,7 @@ from common import RESULTS, ROOT
 os.chdir(ROOT)  # the notebooks resolve weather/ and results/ from the working directory
 sys.stdout.reconfigure(encoding="utf-8")  # the thesis values contain non-ASCII characters (−, °)
 sys.path.insert(0, str(ROOT))
+import crops  # noqa: E402
 from sampling_core import SamplingConfig, resolve_array  # noqa: E402
 from weighted_engine import make_engine  # noqa: E402
 
@@ -71,6 +72,8 @@ def notebook(name, **settings):
             exec(compile(code, "<cell>", "exec"), ns)
     if settings:
         ns["SETTINGS"] = replace(ns["SETTINGS"], **settings)
+    # The thesis tests use winter wheat, whatever crop is currently selected in the notebook's control panel.
+    ns["CROP_CONFIG"], ns["ENGINE_CONFIG"] = crops.crop_setup("winter_wheat", ns["ENGINE_CONFIG"])
     return ns
 
 
