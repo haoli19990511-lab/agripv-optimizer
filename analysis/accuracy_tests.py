@@ -24,6 +24,7 @@ import pandas as pd
 from common import RESULTS, ROOT
 
 os.chdir(ROOT)  # the notebooks resolve weather/ and results/ from the working directory
+sys.stdout.reconfigure(encoding="utf-8")  # the thesis values contain non-ASCII characters (−, °)
 sys.path.insert(0, str(ROOT))
 from sampling_core import SamplingConfig, resolve_array  # noqa: E402
 from weighted_engine import make_engine  # noqa: E402
