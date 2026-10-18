@@ -9,3 +9,6 @@ Tianze_Crop_Hao_Jupyter/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# Data package for reproducing the thesis (distributed separately, see README.md)
+thesis_data.zip

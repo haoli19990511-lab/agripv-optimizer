@@ -1,8 +1,9 @@
 """Thesis tables and quoted numbers from the final re-checks (corrected model, 192 skies for all mountings).
 
     python analysis/final_tables.py
-Writes results/final_tables/: table4_fixed.csv, table5_by_rows.csv, table6_vertical.csv, table7_monthly.csv,
-table8_sensitivity.csv, table9_price_years.csv, table12_single_axis.csv, numbers.json
+Writes results/final_tables/ (file names = table numbers of the thesis): table04_fixed.csv, table05_by_rows.csv,
+table06_vertical.csv, table08_monthly.csv, table09_sensitivity.csv, table10_price_years.csv,
+table15_single_axis.csv (annex) and numbers.json (numbers quoted in the text)
 """
 import json
 
@@ -49,7 +50,7 @@ t4 = pd.DataFrame({"Rows": p.n_rows, "Tilt (°)": p.tilt.map(lambda v: f"{v:.1f}
                    "LERcrop": p.LER_crop.map(lambda v: f"{v:.3f}"), "LERPV": p.LER_pv.map(lambda v: f"{v:.3f}"),
                    "LER": p.LER.map(lambda v: f"{v:.3f}"), "Net, bonus": p.annual_net_eur_ha.map(fmt),
                    "Net, no bonus": p.net_no_bonus.map(fmt)})
-t4.to_csv(OUT/"table4_fixed.csv", index=False)
+t4.to_csv(OUT/"table04_fixed.csv", index=False)
 
 # Table 5: best net income per number of rows, fixed (F) and single-axis (S)
 rows = []
@@ -65,7 +66,7 @@ for n in sorted(set(conv.n_rows) | set(single.n_rows)):
                      "Net income": fmt(b.annual_net_eur_ha), "_kwh": b.kwh_kwp, "_price": b.capture_price_eur_kwh*100,
                      "_capex": b.capex_kwp, "_net": b.annual_net_eur_ha, "_n": n, "_tag": tag})
 t5 = pd.DataFrame(rows)
-t5[[c for c in t5.columns if not c.startswith("_")]].to_csv(OUT/"table5_by_rows.csv", index=False)
+t5[[c for c in t5.columns if not c.startswith("_")]].to_csv(OUT/"table05_by_rows.csv", index=False)
 pairs = t5.pivot(index="_n", columns="_tag", values=["_kwh", "_price", "_capex", "_net"]).dropna()
 N["tracker_kwh_gain_pct"] = [float(((pairs["_kwh"]["S"]/pairs["_kwh"]["F"])-1).min()*100), float(((pairs["_kwh"]["S"]/pairs["_kwh"]["F"])-1).max()*100)]
 N["tracker_price"] = [float(pairs["_price"]["S"].min()), float(pairs["_price"]["S"].max())]
@@ -87,7 +88,7 @@ t6 = pd.DataFrame({"Rows": p.n_rows, "Pitch (m)": p.pitch.map(lambda v: f"{v:.2f
                    "LERPV": p.LER_pv.map(lambda v: f"{v:.3f}"), "LER": p.LER.map(lambda v: f"{v:.3f}"),
                    "Net, 50": p.annual_net_eur_ha.map(fmt), "Net, 100": p.net100.map(fmt), "Net, 150": p.net150.map(fmt),
                    "Break-even (EUR/kWp)": p.break_even.round().astype(int)})
-t6.to_csv(OUT/"table6_vertical.csv", index=False)
+t6.to_csv(OUT/"table06_vertical.csv", index=False)
 best_v = p.loc[p.annual_net_eur_ha.idxmax()]
 N["vertical"] = dict(n=len(vert), n_pareto=int(vert.pareto.sum()), LER=[p.LER.min(), p.LER.max()],
                      positive=int((p.annual_net_eur_ha > 0).sum()), best=best_v.annual_net_eur_ha, best_LER=best_v.LER,
@@ -106,7 +107,7 @@ t12 = pd.DataFrame({"Rows": p.n_rows, "Pitch (m)": p.pitch.map(lambda v: f"{v:.2
                     "Lowest edge (m)": p.min_clearance_m.map(lambda v: f"{v:.2f}"), "LERcrop": p.LER_crop.map(lambda v: f"{v:.3f}"),
                     "LERPV": p.LER_pv.map(lambda v: f"{v:.3f}"), "LER": p.LER.map(lambda v: f"{v:.3f}"),
                     "Net, bonus": p.annual_net_eur_ha.map(fmt), "Net, no bonus": p.net_no_bonus.map(fmt)})
-t12.to_csv(OUT/"table12_single_axis.csv", index=False)
+t12.to_csv(OUT/"table15_single_axis.csv", index=False)
 N["single"] = dict(n=len(single), n_pareto=int(single.pareto.sum()), LER=[p.LER.min(), p.LER.max()],
                    best=single.annual_net_eur_ha.max(), best_no_bonus=single.net_no_bonus.max(),
                    hub=[p.hub_height.min(), p.hub_height.max()], edge=[p.min_clearance_m.min(), p.min_clearance_m.max()],
@@ -171,7 +172,7 @@ m = m[m.design == "highest income"]
 t7 = pd.DataFrame({"Month": m.month, "Share of annual yield (%)": (m.energy_share*100).map(lambda v: f"{v:.1f}"),
                    "PV-weighted price (ct/kWh)": m.capture_price_ct_kwh.map(lambda v: f"{v:.1f}"),
                    "Average price (ct/kWh)": m.average_price_ct_kwh.map(lambda v: f"{v:.1f}")})
-t7.to_csv(OUT/"table7_monthly.csv", index=False)
+t7.to_csv(OUT/"table08_monthly.csv", index=False)
 mm = m[m.month != "year"].copy()
 mm["month"] = mm.month.astype(int)
 N["monthly"] = dict(summer_share=float(mm[mm.month.between(4, 9)].energy_share.sum()*100),
@@ -192,7 +193,7 @@ for key, label, rng in order:
     rows.append({"Parameter": label, "Low / high": rng, "Highest income, low": fmt(g["max net income", "low"]),
                  "Highest income, high": fmt(g["max net income", "high"]), "Highest LER, low": fmt(g["max LER", "low"]),
                  "Highest LER, high": fmt(g["max LER", "high"])})
-pd.DataFrame(rows).to_csv(OUT/"table8_sensitivity.csv", index=False)
+pd.DataFrame(rows).to_csv(OUT/"table09_sensitivity.csv", index=False)
 N["sensitivity_jaccard_min"] = float(pd.read_csv(A/"sensitivity_oat.csv").pareto_jaccard.min())
 e = oat[oat.parameter == "electricity_price_factor"].set_index(["design", "side"]).annual_net_eur_ha
 slope = (e["max net income", "high"]-e["max net income", "low"])/0.6
@@ -218,7 +219,7 @@ t9 = pd.DataFrame({"Prices": ps_.scenario.map(names), "Feed-in": ps_.operation.m
                    "Highest-LER conventional": ps_.max_LER_conv_net.map(fmt),
                    "Profitable conventional": [f"{int(a)} / {int(b)}" for a, b in zip(ps_.conv_positive, ps_.n_conv)],
                    "Best semi-transparent": ps_.best_semi_net.map(fmt)})
-t9.to_csv(OUT/"table9_price_years.csv", index=False)
+t9.to_csv(OUT/"table10_price_years.csv", index=False)
 N["price_years"] = ps_.round(3).to_dict(orient="records")
 
 (OUT/"numbers.json").write_text(json.dumps(N, indent=1, default=float))

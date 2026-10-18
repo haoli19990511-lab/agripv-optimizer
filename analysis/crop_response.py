@@ -4,6 +4,8 @@ Each WOFOST run in runs/aachen_research stores its yield, transpiration and the 
 with. Runs are matched to designs by their yield, as in the results tables.
 Writes results/analysis_crop_response/: crop_response_runs.csv, crop_response_summary.json,
 fig_crop_response.png
+Without runs/aachen_research (about 28 GB, not distributed), the figure and the summary are rebuilt from the
+extracted crop_response_runs.csv and the open-field values in crop_response_summary.json.
 """
 import json
 
@@ -36,27 +38,30 @@ def load_runs():
 def main():
     out = RESULTS/"analysis_crop_response"
     out.mkdir(exist_ok=True)
-    runs = load_runs()
-    nat = runs[runs.natural]
-    if nat.fresh.nunique() != 1:
-        raise AssertionError("Open-field runs differ")
-    nat = nat.iloc[0]
-    apv = runs[~runs.natural].drop_duplicates("fresh")
-    parts = []
-    for label, folder in TABLES.items():
-        t = pd.read_csv(RESULTS/folder/"evaluated_candidates.csv", float_precision="round_trip")
+    t = pd.concat([pd.read_csv(RESULTS/folder/"evaluated_candidates.csv", float_precision="round_trip").assign(set=label)
+                   for label, folder in TABLES.items()], ignore_index=True)
+    if (ROOT/"runs"/"aachen_research").exists():
+        runs = load_runs()
+        nat = runs[runs.natural]
+        if nat.fresh.nunique() != 1:
+            raise AssertionError("Open-field runs differ")
+        nat = nat.iloc[0]
+        apv = runs[~runs.natural].drop_duplicates("fresh")
         t["fresh"] = t.crop_yield_t_ha.round(9)
         t = t.merge(apv[["fresh", "transpiration_mm", "irrad_MJ_m2"]], on="fresh", how="left")
-        t["set"] = label
-        parts.append(t)
-    t = pd.concat(parts, ignore_index=True)
-    t["rel_yield"] = t.crop_yield_t_ha/t.natural_yield_t_ha
-    t["rel_irradiation"] = t.irrad_MJ_m2/nat.irrad_MJ_m2
-    t["rel_transpiration"] = t.transpiration_mm/nat.transpiration_mm
-    m = t.dropna(subset=["irrad_MJ_m2"])
-    cols = ["set", "pv_type", "design_id", "n_rows", "tilt", "pitch", "azimuth", "clearance_height", "rel_irradiation",
-            "rel_yield", "rel_transpiration", "transpiration_mm", "crop_yield_t_ha", "LER_crop"]
-    m[cols].to_csv(out/"crop_response_runs.csv", index=False)
+        t["rel_yield"] = t.crop_yield_t_ha/t.natural_yield_t_ha
+        t["rel_irradiation"] = t.irrad_MJ_m2/nat.irrad_MJ_m2
+        t["rel_transpiration"] = t.transpiration_mm/nat.transpiration_mm
+        m = t.dropna(subset=["irrad_MJ_m2"])
+        cols = ["set", "pv_type", "design_id", "n_rows", "tilt", "pitch", "azimuth", "clearance_height",
+                "rel_irradiation", "rel_yield", "rel_transpiration", "transpiration_mm", "crop_yield_t_ha", "LER_crop"]
+        m[cols].to_csv(out/"crop_response_runs.csv", index=False)
+    else:  # distributed data package: the extracted runs instead of runs/aachen_research
+        print("runs/aachen_research not found: using", out/"crop_response_runs.csv")
+        m = pd.read_csv(out/"crop_response_runs.csv")
+        old = json.loads((out/"crop_response_summary.json").read_text())
+        nat = pd.Series(dict(fresh=old["open_field_yield_t_ha"], irrad_MJ_m2=old["open_field_irradiation_MJ_m2"],
+                             transpiration_mm=old["open_field_transpiration_mm"]))
 
     # The two sets are fitted separately: at equal seasonal irradiation the coarse search sampling gives lower
     # yields (Section 4.6), so a pooled fit would mix two relations.
