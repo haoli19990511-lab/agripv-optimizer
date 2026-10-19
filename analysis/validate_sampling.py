@@ -1,12 +1,14 @@
 """Validate the representative sampling against the full hourly year (fixed tilt).
 
-Takes 3 Pareto designs of a result table (max net income, max LER and the one in between),
-conventional modules only, and evaluates each with the search sampling (24 skies), the re-check
-sampling (144), 8 hours per day (96) and the FULL year (every lit hour), including the crop model.
-Cheap samplings run first; everything is cached, so an interrupted run resumes.
+Takes 3 conventional Pareto designs (max net income, max LER and one in between) and evaluates each with
+the search sampling (24 skies), 3 days x 4 hours (144), 8 hours per day (96) and the FULL year (every lit
+hour), including the crop model. Cheap samplings run first; everything is cached, so an interrupted run
+resumes. The thesis designs (THESIS_DESIGNS) are used whenever they are in the source table; otherwise
+the three designs are picked by the rule above.
 Run with the agripv environment from the optimizer folder:
     python analysis/validate_sampling.py [results/<run>/pareto_front.csv] [parallel]
 Output: results/sampling_validation/sampling_validation.csv and errors_vs_full.csv
+(Table 13 of the thesis: then python analysis/validation_nrw.py, which adds the 192-sky re-check)
 """
 import json
 import os
@@ -17,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
 sys.path.insert(0, str(ROOT))
 
-source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT/"results"/"recheck_combined_144skies"/"pareto_front.csv"
+source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT/"results"/"recheck_combined_192skies"/"pareto_front.csv"
 parallel = int(sys.argv[2]) if len(sys.argv) > 2 else 4
 NOTEBOOK = "agripv_optimizer_fixed.ipynb"
 
@@ -48,9 +50,15 @@ pareto = pd.read_csv(source, float_precision="round_trip")
 conv = pareto[(pareto.pv_type == "conventional") & pareto.feasible].sort_values("LER").reset_index(drop=True)
 if len(conv) < 3:
     raise ValueError(f"Need at least 3 conventional Pareto designs in {source}")
-picks = {"max net income": conv.annual_net_eur_ha.idxmax(), "max LER": conv.LER.idxmax()}
-middle = [i for i in conv.index if i not in picks.values()]
-picks["in between"] = middle[len(middle)//2]
+THESIS_DESIGNS = {"max net income": "cf203d6d55ec3888", "max LER": "4b2fc97a0862dd41", "in between": "e79b7716b4362219"}
+ids = conv.reset_index().set_index("design_id")["index"]
+if all(d in ids.index for d in THESIS_DESIGNS.values()):
+    picks = {label: int(ids[d]) for label, d in THESIS_DESIGNS.items()}
+else:
+    picks = {"max net income": conv.annual_net_eur_ha.idxmax(), "max LER": conv.LER.idxmax()}
+    middle = [i for i in conv.index if i not in picks.values()]
+    picks["in between"] = middle[len(middle)//2]
+print("Designs:", {label: conv.loc[i, "design_id"] for label, i in picks.items()}, flush=True)
 
 out = ROOT/"results"/"sampling_validation"
 out.mkdir(parents=True, exist_ok=True)

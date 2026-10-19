@@ -115,7 +115,7 @@ DEAD_CELL = 'raise RuntimeError("worker must stop before the control panel")'
 
 def build_namespace(root, notebook):
     ns = {"__name__": "__main__"}
-    for cell in json.loads(notebook.read_text())["cells"]:
+    for cell in json.loads(notebook.read_text(encoding="utf-8"))["cells"]:
         if cell["cell_type"] == "code":
             source = "".join(cell["source"])
             if "USER CONTROL PANEL" in source:
@@ -390,7 +390,7 @@ class ConstraintAndToolingTests(unittest.TestCase):
     def test_analyze_ground_hour_skips_direct_trace_on_request(self):
         import ast
         import numpy as np
-        notebook = json.loads((ROOT/"agripv_optimizer_fixed.ipynb").read_text())
+        notebook = json.loads((ROOT/"agripv_optimizer_fixed.ipynb").read_text(encoding="utf-8"))
         tree = ast.parse("".join(notebook["cells"][8]["source"]))
         fn = next(x for x in tree.body if isinstance(x, ast.FunctionDef) and x.name == "analyze_ground_hour")
         traced = []
@@ -414,7 +414,7 @@ class ConstraintAndToolingTests(unittest.TestCase):
         import ast
         from concurrent.futures import ThreadPoolExecutor
         from types import SimpleNamespace
-        notebook = json.loads((ROOT/"agripv_optimizer_fixed.ipynb").read_text())
+        notebook = json.loads((ROOT/"agripv_optimizer_fixed.ipynb").read_text(encoding="utf-8"))
         tree = ast.parse("".join(notebook["cells"][8]["source"]))
         fn = next(x for x in tree.body if isinstance(x, ast.FunctionDef) and x.name == "analyze_array")
         traced = []

@@ -2,7 +2,7 @@
 
 Economics are recomputed from the per-design columns in evaluated_candidates.csv with
 exactly the formula of weighted_engine.economic_metrics, so cost/price assumptions can be
-varied in seconds. Changing the PRICE YEARS still needs hourly kWh (see price_years_cell.py).
+varied in seconds. Other price years use the cached hourly yield (see price_scenarios.py).
 """
 import json
 from pathlib import Path

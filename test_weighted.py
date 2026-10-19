@@ -215,7 +215,7 @@ class IntegrationTests(unittest.TestCase):
             self.assertEqual(out['relative_yield_to_natural'],1.)
 
     def test_notebook_tracing_reconstructs_every_crop_day(self):
-        notebook=json.loads((ROOT/'agripv_optimizer_fixed.ipynb').read_text())
+        notebook=json.loads((ROOT/'agripv_optimizer_fixed.ipynb').read_text(encoding='utf-8'))
         code=''.join(notebook['cells'][8]['source'])
         tree=ast.parse(code)
         fn=next(x for x in tree.body if isinstance(x,ast.FunctionDef) and x.name=='calculate_hourly_results')
@@ -266,7 +266,7 @@ class IntegrationTests(unittest.TestCase):
             np.testing.assert_allclose(group.total_Wh_m2_day,expected.loc[pd.Timestamp(day).date()])
 
     def test_notebook_parse_and_safe_defaults(self):
-        n=json.loads((ROOT/'agripv_optimizer_fixed.ipynb').read_text())
+        n=json.loads((ROOT/'agripv_optimizer_fixed.ipynb').read_text(encoding='utf-8'))
         for c in n['cells']:
             if c['cell_type']=='code':ast.parse(''.join(c['source']))
         panel=next(''.join(c['source']) for c in n['cells'] if 'USER CONTROL PANEL' in ''.join(c['source']))

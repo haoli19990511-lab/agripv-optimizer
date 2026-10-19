@@ -110,9 +110,11 @@ python -u analysis/run_search.py agripv_optimizer_vertical.ipynb > results/searc
 python -u analysis/run_search.py agripv_optimizer_fixed.ipynb --seed 2 --tag seed2_conv_bonus --conventional-only
 python -u analysis/run_recheck.py results/fixed_pooled_bonus_pareto.csv 2 8 agripv_optimizer_fixed.ipynb
 python -u analysis/run_recheck.py results/vertical_nsga2_combined/pareto_front.csv 2 8 agripv_optimizer_vertical.ipynb --crop potato
-python -u analysis/validate_sampling.py results/recheck_combined_144skies/pareto_front.csv 4
+python -u analysis/validate_sampling.py
 ```
-Both scripts execute the model cells and the control panel of the given notebook, so the notebook settings apply.
+The scripts execute the model cells and the control panel of the given notebook, so the notebook settings apply.
+`validate_sampling.py` evaluates the three fixed-tilt designs of Table 13 with all 4,306 daylight hours (18–36 h
+per design); its full-year results are included in `thesis_data.zip`.
 
 ### Computing time (Intel i5-13600KF, 20 threads, five designs in parallel)
 
