@@ -257,5 +257,7 @@ optimum. See Section 5.4 of the thesis.
 
 ## Licence
 
-Not yet specified. Until a licence is added, all rights are reserved by the authors (Hao Li, Tianze Liu, Linrui Li).
-The data in `weather/`, `prices/`, `inputs/` remain under the terms of their original providers.
+The code is released under the MIT licence (see `LICENSE`), © 2026 Hao Li, Tianze Liu, Linrui Li. The data in
+`weather/`, `prices/` and `inputs/` remain under the terms of their providers: PVGIS (European Commission, JRC),
+ENTSO-E Transparency Platform, WOFOST crop parameters (see `inputs/crops/PROVENANCE.json`) and ERA5 via Open-Meteo
+(CC BY 4.0). Please cite the thesis when using the framework.

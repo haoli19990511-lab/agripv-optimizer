@@ -193,8 +193,8 @@ PV_TRACE_MODE = "center"   # 只追踪中间一行的 3 块内部组件，再把
 
 ```python
 import pandas as pd
-base = pd.read_csv(r"C:\Users\haoli\Agripv\optimizer\results\nsga2_combined_all_baseline\evaluated_candidates.csv")
-new  = pd.read_csv(r"C:\Users\haoli\Agripv\optimizer\results\nsga2_combined\evaluated_candidates.csv")
+base = pd.read_csv(r"results\nsga2_combined_all_baseline\evaluated_candidates.csv")
+new  = pd.read_csv(r"results\nsga2_combined\evaluated_candidates.csv")
 m = base.merge(new, on=["design_id", "pv_type"], suffixes=("_all", "_center"))
 m["kwh_error_%"] = 100 * (m.electrical_kwh_center / m.electrical_kwh_all - 1)
 print(m[["design_id", "pv_type", "electrical_kwh_all", "electrical_kwh_center", "kwh_error_%"]])
