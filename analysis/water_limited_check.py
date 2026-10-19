@@ -3,8 +3,9 @@
 The thesis runs WOFOST 7.2 in potential production (Wofost72_PP): water is never limiting. This script repeats
 the crop simulation with the water-limited model Wofost72_WLP_CWB, driven by daily ERA5 rainfall for the source
 months of the TMY (inputs/precipitation/, prepared by Linrui Li from Open-Meteo), for the open field and three
-fixed-tilt Pareto designs (conventional modules, 192 skies), for six crops and two soils:
+fixed-tilt Pareto designs (conventional modules, 192 skies), for six crops and three soils:
   deep    = the generic soil of bridge.run_crop (rooting depth 120 cm, 20 vol-% available water)
+  bk50    = BK50 soil map of North Rhine-Westphalia, Kolluvisol near the site (rooting depth 105 cm, 152 mm available)
   shallow = assumption for a shallower, lighter soil (rooting depth 60 cm, 15 vol-% available water)
     python analysis/water_limited_check.py
 Output: results/water_limited_check/water_limited_check.csv and summary.json
@@ -12,6 +13,7 @@ Output: results/water_limited_check/water_limited_check.csv and summary.json
 import contextlib
 import io
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -19,6 +21,7 @@ import pandas as pd
 
 from common import RESULTS, ROOT
 
+os.chdir(ROOT)  # the notebooks resolve weather/ and results/ from the working directory
 sys.path.insert(0, str(ROOT))
 import bridge  # noqa: E402
 import crops  # noqa: E402
@@ -30,6 +33,12 @@ from weighted_engine import make_engine  # noqa: E402
 
 RAIN_FILE = ROOT/"inputs"/"precipitation"/"Aachen_TMY_precipitation_supplement.json"
 SOILS = {"deep": dict(SMW=.10, SMFCF=.30, SM0=.45, CRAIRC=.06, SOPE=10., KSUB=10., RDMSOL=120.),  # = bridge.run_crop
+         # BK50 (Geologischer Dienst NRW), map unit L5102_K342: Kolluvisol, sandy-loamy silt, no groundwater or
+         # stagnant water, 490 m from the site (selected by Linrui Li). Upper layer: field capacity FK 30 mm/dm,
+         # plant-available water NFK 14.5 mm/dm, air capacity LK 13.3 mm/dm, Kf 21.5 cm/d; second layer Kf 12 cm/d;
+         # reference depth 10.5 dm with NFK 152.8 mm. Single-layer WOFOST 7.2 equivalent:
+         # SMFCF = FK/100, SMW = (FK-NFK)/100, SM0 = (FK+LK)/100, RDMSOL = 105 cm.
+         "bk50": dict(SMW=.155, SMFCF=.30, SM0=.433, CRAIRC=.06, SOPE=21.5, KSUB=12., RDMSOL=105.),
          "shallow": dict(SMW=.10, SMFCF=.25, SM0=.45, CRAIRC=.06, SOPE=10., KSUB=10., RDMSOL=60.)}
 CROPS = ["winter_wheat", "spring_barley", "grain_maize", "potato", "sugar_beet", "soybean"]
 NOTEBOOK = "agripv_optimizer_fixed.ipynb"
@@ -105,7 +114,7 @@ def main():
             rows.append(out)
         print(name, "done", flush=True)
     table = pd.DataFrame(rows)
-    for col in ["TWSO_PP", "TWSO_WLP_deep", "TWSO_WLP_shallow"]:
+    for col in ["TWSO_PP"] + [f"TWSO_WLP_{soil}" for soil in SOILS]:
         open_field = table[table.case == "open field"].set_index("crop")[col]
         table[col.replace("TWSO", "rel")] = table[col]/table.crop.map(open_field)
     out = RESULTS/"water_limited_check"
