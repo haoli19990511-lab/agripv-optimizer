@@ -13,7 +13,7 @@ FILL = {"opt": ("#e3eefb", "#2a78d6"), "rad": ("#fde8df", "#eb6834"), "crop": ("
         "eco": ("#efedf8", "#6b5bb5"), "in": ("#f3f2ee", "#8a8984")}
 
 fig, ax = plt.subplots(figsize=(8.0, 8.4))
-ax.set_xlim(0, 112)
+ax.set_xlim(-3, 112)
 ax.set_ylim(0, 118)
 ax.axis("off")
 
@@ -34,9 +34,10 @@ def arrow(p, q, text=None, rad=0., dx=1.2, ha="left", color=INK2):
         ax.text((p[0]+q[0])/2+dx, (p[1]+q[1])/2, text, fontsize=6.6, color=INK2, va="center", ha=ha, style="italic")
 
 
-inp = box(2, 104, 96, 10, "Inputs",
-          "TMY weather Aachen (PVGIS)  ·  module data  ·  hourly day-ahead prices 2023–2025  ·  costs and crop prices",
-          "in")
+inp = box(22, 104, 56, 10, "Search settings",
+          "variable bounds (Table 1)  ·  NSGA-II settings (Table 3)", "in")
+inp_rad = box(-1.5, 59, 17, 12, "Inputs", "TMY weather\nmodule data", "in")
+inp_eco = box(-1.5, 2, 17, 11, "Inputs", "prices 2023–2025\ncosts, crop prices", "in")
 opt = box(22, 88, 56, 12, "NSGA-II (pymoo)",
           "population of designs  x = (tilt, pitch, azimuth, clearance)\n(single-axis and vertical systems: own variables, Section 3.3)",
           "opt")
@@ -46,21 +47,25 @@ rad = box(22, 59, 56, 12, "Radiation model (Liu)",
           "bifacial_radiance + Radiance, Perez sky, middle module traced\nhourly front/rear module irradiance · daily ground irradiation",
           "rad")
 pv = box(2, 39, 42, 14, "PV yield",
-         r"$E=\sum\,(G_\mathrm{front}+\varphi\,G_\mathrm{rear})\,\eta\,f_T\,f_\mathrm{inv}$" "\n"
+         r"$E=n\,A\,\eta\,f_T\,f_\mathrm{inv}\sum\,(G_\mathrm{front}+\varphi\,G_\mathrm{rear})$" "\n"
          r"$\mathrm{LER_{PV}}=E\,/\,E_\mathrm{ref}$", "rad")
 crop = box(56, 39, 42, 14, "Crop model (Li)",
-           "WOFOST 7.2 (PCSE), winter wheat, area-\nweighted daily ground irradiation\n"
+           "WOFOST 7.2, winter wheat, same weather\n"
+           r"ground irradiation → $Y_\mathrm{APV}$, open field → $Y_\mathrm{open}$" "\n"
            r"$\mathrm{LER_{crop}}=f_\mathrm{plant}\,Y_\mathrm{APV}/Y_\mathrm{open}$", "crop")
 eco = box(2, 19, 42, 14, "Economics",
           r"$\sum E_h c_h$ + agri-PV bonus + crop revenue" "\n− O&M − crop cost − CAPEX·CRF\n"
           r"→ net income $I_\mathrm{net}$", "eco")
 obj = box(56, 19, 42, 14, "Objectives and constraints",
           r"max LER = $\mathrm{LER_{crop}}+\mathrm{LER_{PV}}$,  max $I_\mathrm{net}$" "\n"
-          "crop ≥ 66 % · clearance ≥ 2.5 m\ncorridor ≥ 1.5 m", "opt")
+          "crop matures, ≥ 66 % · corridor ≥ 1.5 m\nclearance ≥ 2.5 m (not vertical)", "opt")
 fin = box(22, 2, 56, 11, "Re-check and final Pareto front",
           "Pareto designs re-evaluated with denser sampling\n(192 skies: 2 days × 8 hours per month, all mounting types)", "opt")
 
 arrow(inp["b"], opt["t"])
+dashed = dict(arrowstyle="-|>", mutation_scale=10, lw=1.0, color="#8a8984", linestyle=(0, (3, 2)), shrinkA=2, shrinkB=2)
+ax.add_patch(FancyArrowPatch(inp_rad["r"], rad["l"], **dashed))
+ax.add_patch(FancyArrowPatch(inp_eco["t"], (eco["x"]+8.5, eco["y"]), **dashed))
 arrow(opt["b"], geo["t"], "candidate design")
 arrow(geo["b"], rad["t"])
 arrow((rad["x"]+12, rad["y"]), pv["t"], "module irradiance", dx=-1.2, ha="right")
