@@ -189,8 +189,9 @@ can be changed afterwards **without new ray tracing**.
 ## 6. Reproducing the thesis
 
 Every table and figure of Chapter 4 can be regenerated from stored results in a few minutes, **without
-ray tracing**. The results are distributed as `thesis_data.zip` (180 MB; attached to the GitHub release or the
-digital appendix of the thesis). It contains the result folders of the searches and re-checks and the physics
+ray tracing**. The results are distributed as `thesis_data.zip` (180 MB), attached to the release
+[v1.0-thesis](https://github.com/haoli19990511-lab/agripv-optimizer/releases/tag/v1.0-thesis) and to the digital
+appendix of the thesis. It contains the result folders of the searches and re-checks and the physics
 cache of the 192-sky re-checks and of the full-year validation.
 
 ```
