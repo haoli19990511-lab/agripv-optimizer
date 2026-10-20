@@ -55,6 +55,7 @@ required (Section 6).
 agripv_optimizer_fixed.ipynb          notebook for fixed-tilt racks            (results in results/)
 agripv_optimizer_single_axis.ipynb    notebook for single-axis trackers        (results in results/single_axis_*)
 agripv_optimizer_vertical.ipynb       notebook for vertical bifacial fences    (results in results/vertical_*)
+thesis_figures.ipynb                  regenerates the figures of the thesis from the stored results
 weighted_engine.py    engine: economics and constraints (economic_metrics), caches, parallel runs, NSGA-II, re-check
 sampling_core.py      representative sky sampling and transfer to all hours (Eq. 3.9 of the thesis)
 bridge.py             crop-model interface: daily weather, crop library, WOFOST/PCSE run
@@ -206,6 +207,9 @@ python analysis/reproduce_thesis.py
 (e.g. highest net income of fixed tilt 954 EUR/(ha·a), 17 Pareto designs, vertical break-even 132 EUR/kWp, Table 13
 and Table 14 ranges). `--list` shows the steps, `--only 6` runs single steps, `--check` only compares.
 The package itself is built with `python analysis/export_thesis_data.py`.
+
+In Jupyter, `thesis_figures.ipynb` runs the figure scripts one by one and shows the figures of Chapters 3
+and 4, two of the tables and the check of the key numbers (kernel: the `agripv` environment).
 
 | Thesis | Script | Output |
 |---|---|---|
