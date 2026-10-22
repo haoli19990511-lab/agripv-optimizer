@@ -218,6 +218,7 @@ and 4, two of the tables and the check of the key numbers (kernel: the `agripv` 
 | Figures 4-1, 4-2 | `results_fixed.py recheck_combined_192skies` | `results/recheck_combined_192skies/analysis/fig_fixed_pareto_*.png` |
 | Tables 4, 5, 6, 8, 9, 10, 15 and quoted numbers | `sensitivity.py`, `price_scenarios.py`, `cost_scenarios.py` (on `recheck_combined_192skies`), then `final_tables.py` | `results/final_tables/table04_fixed.csv` … `table15_single_axis.csv`, `numbers.json` |
 | Figures 4-3, 4-4 | `compare_mountings.py` | `results/analysis_mountings/` |
+| Joint Pareto front of all mounting types (Section 4.3) | `joint_front.py` (after `compare_mountings.py`) | `results/analysis_mountings/joint_front.csv`, `fig_joint_front.png` |
 | Figure 4-5 | `crop_response.py` | `results/analysis_crop_response/` |
 | Table 7, Figure 4-6 | `crop_comparison.py` | `results/analysis_crops/` |
 | Table 13 | `validate_sampling.py` (full-year runs), then `validation_nrw.py` | `results/sampling_validation/` |

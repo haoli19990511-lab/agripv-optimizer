@@ -160,7 +160,7 @@ for name, folder in (("fixed", FIXED), ("single", SINGLE), ("vertical", VERTICAL
                             for k in ("electrical_kwh", "crop_yield_t_ha", "LER", "LER_pv")}
 
 # Joint front over mountings
-allc = pd.concat([conv.assign(m="fixed"), single.assign(m="single"), vert.assign(m="vertical")])
+allc = pd.concat([conv.assign(m="fixed"), single.assign(m="single"), vert.assign(m="vertical")], ignore_index=True)
 allc = mark_pareto(allc.drop(columns="pareto"))
 jf = allc[allc.pareto].sort_values("LER")
 N["joint_front"] = jf[["m", "n_rows", "LER", "annual_net_eur_ha"]].round(3).values.tolist()
